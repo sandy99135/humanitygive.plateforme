@@ -1,0 +1,40 @@
+header {
+    width: 100%;
+    background-color: white;
+}
+.navbar {
+    width: var(--mesure_large);
+    height: 74px;
+    margin: 0 auto;
+}
+
+.navbar i {
+    font-size: 20px;
+    line-height: 0px;
+    color: var(--pink);
+}
+
+.navbar .bi::before, [class^="bi-"]::before, [class*=" bi-"]::before {
+    line-height: 0;
+    vertical-align: -0.25em;
+}
+
+.logo {
+    width: 140px;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.logo img {
+    width: 100%;
+} 
+
+
+@media only screen and (max-width: 600px) {
+    .logo {
+        width: 120px;
+        margin: 0 auto;
+    }
+
+    
+}

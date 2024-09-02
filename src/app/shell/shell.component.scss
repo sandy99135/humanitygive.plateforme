@@ -1,0 +1,19 @@
+
+.block-conteneur {
+    position: relative;
+    width: var(--mesure_large);
+    margin: 0px auto;
+    padding-top: 74px;
+}
+
+.conteneur {
+    position: relative;
+    width: var(--mesure_contener );
+    margin: 0 auto;
+}
+
+.sombre{
+    position: relative;
+    background-color: var(--ground);
+    min-height: 100vh;
+}

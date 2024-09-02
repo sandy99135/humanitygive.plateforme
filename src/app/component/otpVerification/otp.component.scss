@@ -1,0 +1,96 @@
+.otp-container {
+    width: 400px;
+    margin:  auto;
+    // background: #fff;
+    border-radius: 12px;
+    text-align: center;
+
+    .image {
+        width: 50%;
+        margin: 0 auto;
+    }
+    
+    .image img{
+        width: 100%;
+    }
+    
+    h2 {
+        // margin-bottom: 50px;
+        // font-size: 30px;
+    }
+    
+    p {
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    
+    form .input-field {
+        width: 300px;
+        margin: 50px auto;
+    }
+    
+    .input-field input {
+        height: 60px;
+        width: 60px;
+        border-radius: 6px;
+        outline: none;
+        font-size: 1.125rem;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    
+    .input-field input:focus {
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    }
+    
+    .input-field input::-webkit-inner-spin-button,
+    .input-field input::-webkit-outer-spin-button {
+        display: none;
+    }
+    
+    .bout_otp {
+        width: 300px;
+        height: 55px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--pink);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    
+    .bout_otp:hover {
+        background-color: var(--h_pink);    
+    }
+    
+    .bout_otp_desabled{
+        opacity: 0;
+    }
+    
+    .succes{
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .succes i{
+        font-size: 90px;
+        color: #07b362;
+        margin-bottom: 10px;
+    }
+    
+    .resend:hover {
+        cursor: pointer;
+        color: var(--pink);
+        transition: 0.3s;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .otp-container {
+        width: 100%;
+    }
+}
+

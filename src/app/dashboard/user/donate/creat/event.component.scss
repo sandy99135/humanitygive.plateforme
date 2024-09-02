@@ -1,0 +1,33 @@
+.block_event_create {
+    width: var(--mesure_auth);
+    margin: 0 auto;
+}
+
+.block_event_create textarea{
+    padding-top: 12px;
+    padding-right: 20px;
+    font-family: WorkSans , "gt-eesti", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.processus_active {
+    background-color: var(--g43xpl6);
+    color: white;
+}
+
+.heure {
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    input {
+        width: 70px;
+    }
+    span {
+        margin: 0px 10px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .mobi{
+      display: none;
+    }
+  }

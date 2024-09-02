@@ -1,0 +1,376 @@
+<div class="block_compte">
+
+    <div *ngIf="setting == 0">
+        <div class="box-link" (click)="setting = 1">
+            <div class="link">
+                <span>Amélioration du plateforme</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div>
+        <div>
+            <hr>
+        </div>
+        <div class="box-link" (click)="setting = 2">
+            <div class="link">
+                <div>
+                    <span>Dénomination : </span>
+                    <span class="c_gray">{{user.fullName}}</span>
+                </div>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div>
+        <div class="box-link" (click)="setting = 3">
+            <div class="link">
+                <span>Email et Numero téléphone</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div>
+        <div class="box-link" (click)="setting = 4">
+            <div class="link">
+                <span>Mot de passe</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div>
+
+        <div>
+            <hr>
+        </div>
+
+        <div class="box-link" (click)="deconnexion()">
+            <div class="link c_pink">
+                <span>Déconnexion</span>
+            </div>
+        </div>
+        <div>
+            <hr>
+        </div>
+        <div class="box-link" (click)="setting = 5">
+            <div class="link c_pink">
+                <span>Désactiver ou Fermer mon compte</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- contenue  -->
+
+    <div class="p-top-20">
+
+        <div class="amelioration" *ngIf="setting == 1">
+            <div class="box-inp-gray">
+                <div class="mb_20">
+                    <h2>Amélioration du plateforme</h2>
+                </div>
+                <div class="message ">
+                    <p>🌟 Nous cherchons toujours à nous améliorer afin de mieux répondre à vos besoins. Pour cela, nous avons besoin de votre aide ! Partagez avec nous vos suggestions, idées ou commentaires.</p>
+                </div>
+                <div>
+                    <label for="" class="m-top-20">Amelioration du plateforme</label>
+                    <textarea [(ngModel)]="amelioration" style="height: 105px; padding: 20px; " name="" id="" cols="30"
+                        rows="10" placeholder="Message ..."></textarea>
+                </div>
+                <br>
+                <div class="error" *ngIf="error_amelioration_message"> {{error_amelioration_message}} </div>
+
+                <div class="succes" *ngIf = "succes_amelioration_message">
+                    {{succes_amelioration_message}}
+                    <span class="succes-x"><i class="bi bi-check-lg"></i></span>
+                </div>
+
+                <div class="flex-space-simple m-top-20">
+                    <button type="submit" class="bout-pink pointer " (click)="sendAmelioration()"
+                        [disabled]="!amelioration" [ngClass]="{'bout_desabled': !amelioration}">
+                        <app-loading *ngIf="loading_amelioration"></app-loading> Envoyé
+                    </button>
+                    <button class="bout-black pointer" (click)="retour()">Retour </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="denomination" *ngIf="setting == 2">
+            <div class="box-inp-gray mb_20">
+                <div class="mb_20">
+                    <h2>Dénomination</h2>
+                </div>
+                <div class="message ">
+                    <p><strong>Attention :</strong> si vous changer votre dénomination sur le le plateforme , vous ne
+                        pouvez plus le modifier pendant 30 jours . N'y ajoutez aucune majuscule ou ponctuation
+                        inhabituelle , aucun caractère spécial ou aucun mot aléatoire .</p>
+                </div>
+                <div class="box-inp m-top-20">
+                    <label for="">Modifier Denomination</label>
+                    <input type="text" [(ngModel)]="user.fullName">
+                </div>
+                <div class="flex-space-simple m-top-20">
+                    <button type="submit" class="bout-pink pointer " (click)="changeDenomination()"
+                        [disabled]="!user.fullName" [ngClass]="{'bout_desabled': !user.fullName}">
+                        <app-loading *ngIf="loading_denomination"></app-loading>Enregistrer
+                    </button>
+                    <button class="bout-black pointer" (click)="retour()">Retour </button>
+                </div>
+            </div>
+
+            <div *ngIf="deno_succes" class="pad_20 m-top-20 rad-15 flex-space-simple"
+                style="background-color: rgb(9 251 9 / 14%);">
+                <span>{{deno_succes}}</span>
+                <i class="bi bi-check-lg"></i>
+            </div>
+            <div *ngIf="deno_error" class="pad_20 m-top-20 rad-15" style="background-color: rgb(255 7 7 / 11%);">
+                <span>{{deno_error}}</span>
+            </div>
+        </div>
+
+        <div class="email" *ngIf="setting == 3">
+            <div class="box-inp-gray mb_20">
+                <div class="mb_20">
+                    <h2>Email et Numero téléphone</h2>
+                </div>
+                <div class="flex-space-simple mobi-block">
+                    <span>{{user.email}}</span> 
+                    <span class="c_pink">
+                        Verifier <i class="bi bi-check-circle-fill"></i></span>
+                    </div>
+                <div class="m-top-20"><span></span> <span> 0{{user.phoneNumber}}</span></div> <br>
+                <div class="box-inp m-top-20">
+                    <label for="">Ajouter une adresse e-mail</label>
+                    <input type="email" [(ngModel)]="user.email">
+                </div>
+                <div class="box-inp m-top-20">
+                    <label for="">Ajouter un numero de téléphone</label>
+                    <input type="number" [(ngModel)]="'0'+user.phoneNumber">
+                </div>
+                <div class="flex-space-simple m-top-20">
+                    <button type="submit" class="bout-pink pointer " (click)="changeEmailAndNumber()"
+                        [disabled]="!user.email && !user.phoneNumber"
+                        [ngClass]="{'bout_desabled': !user.email && !user.phoneNumber}">
+                        <app-loading *ngIf="loading_notification"></app-loading> Modifier
+                    </button>
+                    <button class="bout-black pointer" (click)="retour()">Retour </button>
+                </div>
+            </div>
+
+            <div *ngIf="noti_succes" class="pad_20 m-top-20 rad-15 flex-space-simple"
+                style="background-color: rgb(9 251 9 / 14%);">
+                <span>{{noti_succes}}</span>
+                <i class="bi bi-check-lg"></i>
+            </div>
+            <div *ngIf="noti_error" class="pad_20 m-top-20 rad-15" style="background-color: rgb(255 7 7 / 11%);">
+                <span>{{noti_error}}</span>
+            </div>
+        </div>
+
+        <div class="mdp" *ngIf="setting == 4">
+            <div class="box-inp-gray">
+                <div class="message flex-space-simple mb_20 pointer" style="background-color: var(--hoverBackground);"
+                    (click)="mdpOublie()">
+                    <p>Récupérer mot de passe oublié </p>
+                    <i *ngIf="!loading_mdp_oublie" class="bi bi-chevron-right"></i>
+                    <app-loading *ngIf="loading_mdp_oublie" [color]="'pink'"></app-loading>
+                </div>
+                <div class="mb_20">
+                    <h2>Modifier mot de passe</h2>
+                </div>
+                <div class="box-inp ">
+                    <label for="">Mot de passe actuel</label>
+                    <div class="relative">
+                        <input type="{{ eyes_1 ? 'text' : 'password' }}" [(ngModel)]="mdp.actuel">
+                        <button class="button-eye pointer " (click)="eyes_1 = !eyes_1">
+                            <i *ngIf="!eyes_1" class="bi bi-eye" aria-hidden="true"></i>
+                            <i *ngIf="eyes_1" class="bi bi-eye-slash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-inp m-top-20">
+                    <label for="" [ngClass]="{'c_pink': mdp.nouveau == mdp.comfirme}">Nouveau mot de passe</label>
+                    <div class="relative">
+                        <input type="{{ eyes_2 ? 'text' : 'password' }}" [(ngModel)]="mdp.nouveau"
+                            (change)="validationMdp($event)">
+                        <button class="button-eye pointer " (click)="eyes_2 = !eyes_2">
+                            <i *ngIf="!eyes_2" class="bi bi-eye" aria-hidden="true"></i>
+                            <i *ngIf="eyes_2" class="bi bi-eye-slash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <label *ngIf="mdpValidation" for="" style="color: var(--pink) !important ; margin-top: 5px;"> Il
+                        doit comporter au moin 8 caractères dont 1 lettre , 1 chiffre et 1 caractère spécial.</label>
+                </div>
+                <div class="box-inp m-top-20">
+                    <label for="" [ngClass]="{'c_pink': mdp.nouveau == mdp.comfirme}">Comfirmer le nouveau mot de
+                        passe</label>
+                    <input type="password" [(ngModel)]="mdp.comfirme">
+                </div>
+                <div class="flex-space-simple m-top-20">
+                    <button type="submit" class="bout-pink pointer " (click)="changeMdp()"
+                        [disabled]="!mdp.actuel || !mdp.nouveau || !mdp.comfirme || mdp.nouveau != mdp.comfirme || mdpValidation"
+                        [ngClass]="{'bout_desabled': !mdp.actuel || !mdp.nouveau || !mdp.comfirme || mdp.nouveau != mdp.comfirme || mdpValidation}">
+                        <app-loading *ngIf="loading_mdp"></app-loading>Modifier le mot de passe
+                    </button>
+                    <button class="bout-black pointer" (click)="retour()">Retour </button>
+                </div>
+
+                <div *ngIf="mdp_succes" class="pad_20 m-top-20 rad-15 flex-space-simple"
+                    style="background-color: rgb(9 251 9 / 14%);">
+                    <span>{{mdp_succes}}</span>
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <div *ngIf="mdp_error" class="pad_20 m-top-20 rad-15" style="background-color: rgb(255 7 7 / 11%);">
+                    <span>{{mdp_error}}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="setting == 41" style="text-align: center;">
+            <app-otp class="mb_20" (otpEvent)="otpValidation($event)"></app-otp>
+            <button class="bout-black pointer" (click)="retour()">Retour </button>
+        </div>
+
+        <!-- Mot de passe oublier -->
+        <div class="mdp" *ngIf="setting == 42">
+            <div class="box-inp-gray">
+                <div class="mb_20">
+                    <h2>Creer votre nouveau mot de passe</h2>
+                </div>
+                <div class="box-inp m-top-20">
+                    <label for="" [ngClass]="{'c_pink': mdp_oublie.nouveau == mdp_oublie.confirme}">Nouveau mot de
+                        passe</label>
+                    <div class="relative">
+                        <input type="{{ eyes_a ? 'text' : 'password' }}" [(ngModel)]="mdp_oublie.nouveau"
+                            (change)="validationMdp($event)">
+                        <button class="button-eye pointer " (click)="eyes_a = !eyes_a">
+                            <i *ngIf="!eyes_a" class="bi bi-eye" aria-hidden="true"></i>
+                            <i *ngIf="eyes_a" class="bi bi-eye-slash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <label *ngIf="mdpValidation" for="" style="color: var(--pink) !important ; margin-top: 5px;"> Il
+                        doit comporter au moin 8 caractères dont 1 lettre , 1 chiffre et 1 caractère spécial.</label>
+                </div>
+                <div class="box-inp m-top-20">
+                    <label for="" [ngClass]="{'c_pink': mdp_oublie.nouveau == mdp_oublie.confirme}">Comfirmer le nouveau
+                        mot de passe</label>
+                    <div class="relative">
+                        <input type="{{ eyes_b ? 'text' : 'password' }}" [(ngModel)]="mdp_oublie.confirme">
+                        <button class="button-eye pointer " (click)="eyes_b = !eyes_b">
+                            <i *ngIf="!eyes_b" class="bi bi-eye" aria-hidden="true"></i>
+                            <i *ngIf="eyes_b" class="bi bi-eye-slash" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-space-simple m-top-20">
+                    <button type="submit" class="bout-pink pointer " (click)="resetMdpOublie()"
+                        [disabled]=" !mdp_oublie.nouveau || !mdp_oublie.confirme || mdp_oublie.nouveau != mdp_oublie.confirme || mdpValidation"
+                        [ngClass]="{'bout_desabled':  !mdp_oublie.nouveau || ! mdp_oublie.confirme || mdp_oublie.nouveau != mdp_oublie.confirme || mdpValidation}">
+                        <app-loading *ngIf="loading_mdp"></app-loading>Enregistrer le mot de passe
+                    </button>
+                    <button class="bout-black pointer" (click)="retour()">Retour </button>
+                </div>
+
+                <div *ngIf="mdp_oublie_succes" class="pad_20 m-top-20 rad-15 flex-space-simple"
+                    style="background-color: rgb(9 251 9 / 14%);" (click)="retour()">
+                    <span>{{mdp_oublie_succes}}</span>
+                    <i class="bi bi-check-lg"></i>
+                </div>
+                <div *ngIf="mdp_oublie_error" class="pad_20 m-top-20 rad-15"
+                    style="background-color: rgb(255 7 7 / 11%);">
+                    <span>{{mdp_oublie_error}}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="setting == 5">
+            <div class="box-inp-gray">
+                <div class="mb_20">
+                    <h2>Suppression ou désactivation de votre compte Sozo</h2>
+                </div>
+                <div class="c_gray">
+                    Si vous souhaiter faire une pause , vous pouvez desactiver votre compte . Si vous voulez supprimer
+                    votre compte de façon définitive , dites-le nous.
+                </div>
+
+                <div class="flex-start pad_20 rad-15 m-top-20" style="background-color: white;">
+                    <div (click)="compte.desactiver = !compte.desactiver ; compte.supprimer = false ;" class="c_pink">
+                        <i class="bi bi-check-circle-fill" *ngIf="compte.desactiver"></i>
+                        <i class="bi bi-circle" *ngIf="!compte.desactiver"></i>
+                    </div>
+                    <div class="m-left-30">
+                        <div class="mb_10"><strong>Désactiver le compte</strong></div>
+                        <div> La désactivation de votre compte est temporaire . <span class="c_gray"> Votre compte sera
+                                désactivé , et votre nom et photos seront supprimés des contenus </span></div>
+                    </div>
+                </div>
+
+                <div class="flex-start pad_20 rad-15 m-top-20" style="background-color: white;">
+                    <div (click)="compte.supprimer = !compte.supprimer ; compte.desactiver = false ;" class="c_pink">
+                        <i class="bi bi-check-circle-fill" *ngIf="compte.supprimer"></i>
+                        <i class="bi bi-circle" *ngIf="!compte.supprimer"></i>
+                    </div>
+                    <div class="m-left-30">
+                        <div class="mb_10"><strong>Supprimer le compte</strong></div>
+                        <div>La suppression de votre compte est définitive . <span class="c_gray"> Lorsque vous
+                                supprimez votre compte , vous ne pouvez plus en récupérer le contenu ou les informations
+                                . Tous seront supprimés . </span></div>
+                    </div>
+                </div>
+
+                <div class="flex-space-simple m-top-20">
+                    <button type="submit" class="bout-pink pointer " (click)="monCompte()"
+                        [disabled]="!compte.supprimer && !compte.desactiver"
+                        [ngClass]="{'bout_desabled': !compte.supprimer && !compte.desactiver}">
+                        <span *ngIf="compte.supprimer">Supprimer le compte</span>
+                        <span *ngIf="compte.desactiver">Désactiver le compte</span>
+                    </button>
+                    <button class="bout-black pointer" (click)="retour()">Retour </button>
+                </div>
+            </div>
+
+            <div class="modal" *ngIf="modalCompte">
+                <div class="box-modal">
+                    <div class="mb_20">
+                        <span *ngIf="compte.desactiver">Pour désactiver votre compte</span>
+                        <span *ngIf="compte.supprimer">Pour supprimer votre compte</span>
+                        <span> veuillez verifier votre mot de passe</span>
+                    </div>
+                    <div class="box-inp ">
+                        <input type="password" [(ngModel)]="sup_desactive_mdp">
+                    </div>
+                    <div class="error mb_20" *ngIf="sup_desactive_error">Mot de passe incorrecte</div>
+                    <div class="flex-space-simple">
+                        <button type="submit" class="bout-pink pointer " (click)="supDesactiveCompte()">
+                            <app-loading *ngIf="loading_compte"></app-loading>
+                            <span *ngIf="compte.supprimer"> Supprimer le compte</span>
+                            <span *ngIf="compte.desactiver"> Désactiver le compte</span>
+                        </button>
+                        <button class="bout-black pointer" (click)="modalCompte = false">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- <div class="box-link">
+            <div class="link">
+                <span>Adresse postale</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div> -->
+<!-- <div class="box-link">
+            <div class="link">
+                <span>Paiement</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div> -->
+<!-- <div class="box-link">
+            <div class="link">
+                <span>Preferences de virement</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div> -->
+<!-- <div><hr></div>
+        <div class="box-link">
+            <div class="link">
+                <span>Protection des données</span>
+                <div><span><i class="bi bi-chevron-right"></i></span></div>
+            </div>
+        </div> -->

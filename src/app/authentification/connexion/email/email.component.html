@@ -1,0 +1,40 @@
+<div class="block_connexion_email">
+    <h1><span>Saisiser vos identifiants</span></h1>
+        <div class="box-conx">
+            <input type="mail" placeholder="E-mail" [(ngModel)]="email" required/>
+        </div>
+        <div class="box-conx relative" >
+            <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Mot de passe" [(ngModel)]="mdp">
+            <button class="button-eye pointer " (click) = "showMyPassword()">
+                <i *ngIf ="!showPassword" class="bi bi-eye" aria-hidden="true"></i>
+                <i *ngIf ="showPassword" class="bi bi-eye-slash" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="error" *ngIf="erreur != ''">
+            <span> {{ erreur }}</span>
+          </div>
+
+        <!-- <div class="bx-text flex-space" (click) = "sesouvenir()">
+            <div> <span>Se souvenir de moi</span></div>
+            <div class="check-box" [ngClass] = "{'checked': souvenir}" ><i class="bi bi-check2"></i></div>
+        </div> -->
+
+        <div class="bx-text">
+            <div> 
+                <span>Pas encore membre ?</span> 
+                <span class="c_pink pointer" > <a routerLink="/auth/register/email" > Inscriver-vous</a></span>
+            </div>
+        </div>
+
+        <div class="bx-text">
+            <div> <span class="c_pink pointer"><a routerLink="/forgotMdp" > Mot de passe oublier ?</a></span> </div>
+        </div>
+
+        <div class="button" >
+            <button (click)="submit()"class="bout bout_pink" >
+                <app-loading *ngIf="loading"></app-loading>
+                Connexion
+            </button>
+        </div>
+</div>

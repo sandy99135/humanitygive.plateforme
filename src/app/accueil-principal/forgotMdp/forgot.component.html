@@ -1,0 +1,86 @@
+<div class="forgot-contener">
+
+    <!-- Etape 1 -->
+
+    <div class="forgot-email" *ngIf="etape == 1">
+
+        <h1 class="h1-left">Enter votre email</h1>
+        <form [formGroup]="forgotForm" (ngSubmit)="mdpOublie()">
+            <div class="box-conx">
+                <input type="mail" placeholder="E-mail" formControlName="email" required/>
+            </div>
+
+            <div class="error" *ngIf ="forgotError">
+                {{forgotError}}, réessayer ultérieurement
+            </div>
+            <br>
+            <div class="flex-space-simple">
+                <button   type="submit" [disabled]="forgotForm.invalid" class="bout pointer"  [ngClass]="{'bout_pink': !forgotForm.invalid , 'bout_pink_disabled':forgotForm.invalid}">
+                    <app-loading *ngIf="loading_mdp_oublie"></app-loading> 
+                    Continuer
+                </button>
+                <span class="bout-black pointer" (click)= "retour()">Retour</span>
+            </div>
+        </form>
+    </div>
+
+    <!-- Etape 2 -->
+
+    <div class="otp" style="text-align: center;" *ngIf="etape == 2">
+        <app-otp class="mb_20" (otpEvent)="otpValidation($event)"></app-otp>
+        <div class="center">
+            <button class="bout-black pointer" (click)= "retour()" >Retour </button>
+        </div>
+    </div>
+
+    <!-- Etape 3 -->
+
+    
+    <div class="mdp" *ngIf = "etape == 3">
+        <div class="box-inp-gray">
+            <div class="mb_20"><h2>Creer votre nouveau mot de passe</h2></div>
+            <div class="box-inp m-top-20">
+                <label for="" [ngClass]= "{'c_pink': mdp_oublie.nouveau == mdp_oublie.confirme}">Nouveau mot de passe</label>
+                <div class="relative">
+                    <input type="{{ eyes_a ? 'text' : 'password' }}" [(ngModel)]="mdp_oublie.nouveau" (change) ="validationMdp($event)">
+                    <button class="button-eye pointer " (click) = "eyes_a = !eyes_a">
+                        <i *ngIf ="!eyes_a" class="bi bi-eye" aria-hidden="true"></i>
+                        <i *ngIf ="eyes_a" class="bi bi-eye-slash" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <label *ngIf ="mdpValidation" for="" style="color: var(--pink) !important ; margin-top: 5px;"> Il doit comporter au moin 8 caractères dont 1 lettre , 1 chiffre et 1 caractère spécial.</label>
+            </div>
+            <div class="box-inp m-top-20">
+                <label for="" [ngClass]= "{'c_pink': mdp_oublie.nouveau == mdp_oublie.confirme}">Comfirmer le nouveau mot de passe</label>
+                <div class="relative">
+                    <input type="{{ eyes_b ? 'text' : 'password' }}" [(ngModel)]="mdp_oublie.confirme">
+                    <button class="button-eye pointer " (click) = "eyes_b = !eyes_b">
+                        <i *ngIf ="!eyes_b" class="bi bi-eye" aria-hidden="true"></i>
+                        <i *ngIf ="eyes_b" class="bi bi-eye-slash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-space-simple m-top-20" >
+                <button type="submit" class="bout-pink pointer "
+                (click)="resetMdpOublie()"
+                [disabled] = " !mdp_oublie.nouveau || !mdp_oublie.confirme || mdp_oublie.nouveau != mdp_oublie.confirme || mdpValidation"
+                [ngClass] = "{'bout_desabled':  !mdp_oublie.nouveau || ! mdp_oublie.confirme || mdp_oublie.nouveau != mdp_oublie.confirme || mdpValidation}">
+                    <app-loading *ngIf = "loading_mdp" ></app-loading>Enregistrer le mot de passe
+                </button>
+                <button class="bout-black pointer" (click)= "retour()" >Retour </button>
+            </div>
+
+            <div *ngIf ="mdp_oublie_succes" class="pad_20 m-top-20 rad-15 flex-space-simple" 
+                style="background-color: rgb(9 251 9 / 14%);"
+                (click)= "retour()">
+                <span>{{mdp_oublie_succes}}</span>
+                <i class="bi bi-check-lg" ></i>
+            </div>
+            <div *ngIf ="mdp_oublie_error" class="pad_20 m-top-20 rad-15" style="background-color: rgb(255 7 7 / 11%);">
+                <span>{{mdp_oublie_error}}</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>

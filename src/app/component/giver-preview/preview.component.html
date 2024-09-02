@@ -1,0 +1,19 @@
+<div >
+    <!-- <h4>Giver</h4> -->
+    <div class="Block-preview flex-space-simple">
+        <div class="box-liste flex-start" (click) = "voirListeGiver()">
+            <ng-container *ngFor="let giver of data;">
+                <div class="box-image">
+                    <div class="online"></div>
+                    <div class="image">
+                        <img src="{{imageUrl(giver.profilPicture.name , giver.profilPicture.type)}}" alt="" loading="lazy" >
+                    </div>
+                    <!-- <span class="giver_nom c_gray">xrenomx</span> -->
+                </div>
+            </ng-container>
+        </div>
+        <div class="voir_link pointer" (click) = "voirListeGiver()">
+           Voir  Donneur <i style="height: 100%;" class="bi bi-chevron-right c_gray"></i>
+        </div>
+    </div>
+</div>

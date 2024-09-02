@@ -1,0 +1,47 @@
+<div class="block_edit">
+    <h1>Information personnelles</h1>
+
+    <form  [formGroup]="myForm">
+        <div class="box-check p-left-20 ">
+            <span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter photo de profil
+        </div>
+        <div class="line-fine"><hr></div> <br>
+
+        <div class="box-inp">
+            <label for="">Nom</label>
+            <input type="text"  formControlName="nom">
+        </div>
+        <div class="box-inp">
+            <label for="">Prénom</label>
+            <input type="text" formControlName="prenom">
+        </div>
+        <div class="box-inp">
+            <label for="">Sexe</label>
+            <input type="text" formControlName="sexe">
+        </div>
+        <div class="box-inp">
+            <label for="">Date de naissance</label>
+            <input type="date" formControlName="date">
+        </div>
+        <div class="box-inp">
+            <label for="">Adresse</label>
+            <input type="text" formControlName="adresse">
+        </div>
+        <div class="box-inp">
+            <label for="">E-mail</label>
+            <input type="text" formControlName="email">
+        </div>
+        <div class="box-check p-left-20 ">
+            <span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter numéro téléphone
+        </div>
+        <div class="line-fine"><hr></div>
+        <div class="box-check p-left-20 ">
+            <span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter minibio
+        </div>
+    </form>
+
+    <div class="p-left-20 mg_25">
+        <button class="bout b_pink">sauvegarder </button>
+    </div>
+    
+</div>

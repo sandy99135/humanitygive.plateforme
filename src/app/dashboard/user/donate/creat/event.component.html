@@ -1,0 +1,97 @@
+<div class="block_event_create">
+    <h1>{{ dictionnaire.donate.get(donate_type) }} </h1>
+
+    <!-- <form  [formGroup]="donate_form" (ngSubmit)="donate_Submit()" > -->
+        <div >
+            <label for="">Désignation et Quantité</label>
+            <div class="flex-space-simple">
+                <div class="box-inp-gray " style="width: 100px;">
+                    <input type="number"  placeholder="Quantité" [(ngModel)] = "quantity" >
+                </div>
+                <div class="box-inp-gray " style="width: calc(100% - 120px);">
+                    <input type="text"  placeholder="Désignation" [(ngModel)] = "name">
+                </div>
+            </div>
+            <div *ngIf = "panier_error" style="color: red;"> <div>Désignation et Quantité sont obligatoires</div>  <br></div> 
+            <div *ngIf = "!panier_error && donate_type == 3" class="c_gray"> <div>Ex : 10 kg de sac de riz / 2, Bouteille d'huile / 6, .... </div>  <br></div> 
+            
+            <div class="m-top-20"> <span class="bout-ronded-black  pointer" (click) = "addPanier()"><i class="bi bi-basket2-fill"></i> Ajouter au don</span></div>
+        </div>
+
+        <br> <br>
+
+        <div class="panier">
+             <div *ngFor = "let don of panier ; let i = index ;" class="pad_10_simple flex-space-simple">
+                <div class="flex-start">
+                    <span style="display: block; width: 50px;">{{don.quantity}}</span>
+                    <span>{{don.name}}</span>
+                </div>
+                <div class="b-supp-rond  pointer" (click) = "delete(i)"><i class="bi bi-x"></i></div>
+             </div>
+        </div>
+
+        <div class="m-top-20">
+            <label for="">Processus de livraison</label>
+            <div class="flex-start m-top-20 mb_20" >
+                <span class="bout-ronded-gray pointer" (click)="processus_active = 1" [ngClass]="{'processus_active' : processus_active == 1}" style="margin-right: 15px;">Récupérer chez moi</span>
+                <span class="bout-ronded-gray pointer" (click)="processus_active = 2" [ngClass]="{'processus_active' : processus_active == 2}">Livrer moi-meme</span>
+            </div>
+            
+            <div *ngIf = "processus_active == 1">
+                <div class="box-inp-gray">
+                    <label for="">Jour de Ramassage</label>
+                    <input type="date" [(ngModel)] = "processus_date">
+                </div>
+
+                <div class="box-inp-gray">
+                    <label for="timeInput">Heure de Ramassage (HH:mm)</label>
+                    <div class="heure">
+                            <input type="number" placeholder="HH"  #txt1 maxlength="2" (keyup) = "move($event,'',txt1, txt2)"   [(ngModel)] = "processus_start_heure"><span>:</span>
+                            <input type="number" placeholder="mm"  #txt2 maxlength="2" (keyup) = "move($event,txt1,txt2, txt3)" [(ngModel)] = "processus_start_minute">
+                            <span> à </span>
+                            <input type="number" placeholder="HH"  #txt3 maxlength="2" (keyup) = "move($event,txt2,txt3, txt4)" [(ngModel)] = "processus_end_heure"><span>:</span>
+                            <input type="number" placeholder="mm"  #txt4 maxlength="2" (keyup) = "move($event,txt3,txt4, '')"   [(ngModel)] = "processus_end_minute">
+                    </div>
+                </div>
+                
+                <div class="box-inp-gray">
+                    <label for="timeInput">Numero de téléphone</label>
+                    <input type="number" [(ngModel)] = "'0' + processus_number">
+                </div>
+
+                <div class="box-inp-gray">
+                    <label for="timeInput">Adresse de recupération </label>
+                    <input type="text" [(ngModel)] = "processus_adresse_giver"  >
+                </div>
+
+            </div>
+
+            <div *ngIf = "processus_active == 2" class="mb_20">
+                <div class="pad_20 ground_white rad-15">
+                    <span>Vous pouvez livrer vos dons et visiter l'association </span> <br>
+                    <strong>
+                        <span>Du lundi au vendredi</span> <br>
+                        <span>De 9h a 17h</span>  <br>
+                        {{processus_adresse_receiver}} <br>
+                        {{processus_number_ass}}
+                    </strong> <br>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="error" *ngIf ="error">{{error}}</div>
+        <div class="message_succes flex-space-simple" *ngIf ="succes"> <span>{{succes}}</span>  <i class="bi bi-check-lg"></i> </div>
+
+        <div class="flex-space-simple m-top-20" >
+            <button class="bout-pink" (click) = "validation_Submit('add')"  >
+                <app-loading [color] = "'pink'" *ngIf = "loading_donate"></app-loading>
+                 Donner <span class="mobi">a l'association</span> 
+            </button>
+            <a routerLink = "/user/donate" ><button class="bout-black">Retour </button></a> 
+        </div>
+
+    <br> <br>
+
+    
+</div>

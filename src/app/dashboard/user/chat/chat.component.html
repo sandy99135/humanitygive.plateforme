@@ -1,0 +1,170 @@
+<div class="image-acceuil flex-center" *ngIf="!discutions && !from_profil_contact && !loading">
+    <div class="c_gray" style="text-align: center;">
+        <img src="assets/images/chat-fond.svg">
+        <h1>Vos messages apparaitrons ici.</h1>
+    </div>
+</div>
+
+<div class="block-chat flex-space-simple" *ngIf="(discutions || from_profil_contact) && !loading">
+
+    <div class="discution" *ngIf="discu_view ">
+        <ng-container *ngIf="discutions!.length !== 0 || (discutions!.length == 0 && search)">
+            <div class="box-inp formulaire-search"  >
+                <input type="text" (change)="changeSearch($event)" placeholder="  Recherche ..">
+            </div>
+            <span *ngIf="discutions.length == 0"> Aucun résultat trouvé</span>
+        </ng-container>
+        <ng-container *ngFor="let d of discutions , let i = index ;">
+            <div class="discution-box flex-space-simple" [ngClass]="{'selected':i == selected}"
+                (click)="selecteDiscution(d , i)">
+                <div class="discution-p-t flex-start-simple">
+                    <div class="discution-profil">
+                        <img *ngIf="d.profil" src="{{imageUrl(d.profil!.name , d.profil!.type)}}" alt="" loading="lazy" >
+                    </div>
+                    <div class="discution-text">
+                        <div class="d-nom"><strong>{{d.name}}</strong> </div>
+                        <div class="d-text" [ngClass]="{'c_gray': d.isRead}">{{d.message}}</div>
+                    </div>
+                </div>
+                <div class="d-time">
+                    {{d.date| timeAgo}}
+                    <!-- <div class="non-lu flex-center" *ngIf="d.notRead != 0">{{d.notRead}}</div> -->
+                </div>
+                <div class="delete-discution flex-center">
+                    <span class="pointer" (click)="deleteDiscutionComfirme()"><i class="bi bi-trash3"></i></span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="detail " *ngIf="detail && !loading_detail">
+        <div class="head-detail flex-center">
+            <div class="box-head-d flex-space">
+                <div (click)="mobilDetailRetourn()" class="head-return">
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+                <div class="box-d-p flex-start">
+                    <div class="detail-profil">
+                        <img *ngIf="discution_profil!.profilImage" [src]="discution_profil!.profilImage"  loading="lazy"> 
+                    </div>
+                    <div>
+                        <div>{{discution_profil.name}}</div>
+                        <div class="c_gray" style="font-size: 13px;">Connecté</div>
+                    </div>
+                </div>
+                <div style="padding: 0px 10px;" (click)="deleteDiscution()"><i class="head-detail-delete bi bi-three-dots-vertical"></i>
+                </div>
+            </div>
+        </div>
+        <div class="detail-box">
+            <div id="content">
+                <ng-container *ngFor="let m of message , let i = index ;">
+                    <div class="gauche" *ngIf="m.position =='gauche'">
+                        <div class="flex-start-simple">
+                            <div *ngIf="m.position =='gauche'">
+                                <div class="profil" [ngClass]="{'trasparent': i != 0 && message[(i-1)]!.position != 'droite'}">
+                                    <img *ngIf="m.profil" [src]="imageUrl(m.profil.name ,m.profil.type)" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="content-msg">
+                                <div style="display: flex; justify-content:flex-start;">
+                                    <div class="msg"  (click)="clickMsg(i)">
+                                        {{m.message}}
+                                        <div  class="reaction flex-space-simple" *ngIf="  target_reaction  == i"
+                                        (click)="clickOnReaction()" (clickOutside)="outsideReaction(i)">
+                                            <ng-container *ngFor="let re of reactions , let r = index ;">
+                                            <span (click)="chooseReaction(m,i,r)">{{re}}</span>
+                                            </ng-container>
+                                            <!-- <div class="reaction-delete" (click)="deleteMessage(m)"><i class="bi bi-trash3"></i></div> -->
+                                        </div>
+                                        <div class="reaction-in-msg flex-center" (click)="deleteReaction(m,i)" *ngIf="m.reaction != null && m.reaction != ''">{{m.reaction}}</div>
+                                    </div>
+                                </div>
+                                <div class="time">{{m.date| timeAgo}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="droite box-msg" *ngIf="m.position !='gauche'">
+                        <div class="content-msg" >
+                            <div style="display: flex; justify-content: flex-end;">
+                                <div class="msg" (click)="clickMsg(i)">
+                                    {{m.message}}
+                                    <div  class="reaction r-droite flex-space-simple" *ngIf="  target_reaction  == i"
+                                        (click)="clickOnReaction()" (clickOutside)="outsideReaction(i)">
+                                            <ng-container *ngFor="let re of reactions , let r = index ;">
+                                            <span (click)="chooseReaction(m,i,r)">{{re}}</span>
+                                            </ng-container>
+                                            <div class="reaction-delete" (click)="deleteMessage(m)"><i class="bi bi-trash3"></i></div>
+                                        </div>
+                                        <div class="reaction-in-msg r-m-droite flex-center" (click)="deleteReaction(m,i)" *ngIf="m.reaction != null && m.reaction != ''">{{m.reaction}}</div>
+                                </div>
+                            </div>
+                            <div class="time" style="text-align: right;">{{m.date| timeAgo}}</div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="box-inp-gray formulaire-send">
+                <textarea class="write" placeholder="Message .." [(ngModel)]="send_text"></textarea>
+
+                <div class="outil flex-space-simple">
+                    <div class="add-emoji flex-center pointer" (click)="showEmoji()"><i class="bi bi-emoji-smile"></i>
+                    </div>
+                    <div class="flex-center">
+                        <div class="send-btn flex-center pointer" (click)="send()"><i class="bi bi-send-fill"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+
+        <div class="emoji_view" *ngIf="emoji_view">
+            <div class="box-emoji" (clickOutside)="outsideBoxEmoji()">
+                <ng-container *ngFor="let emo of emoji , let i = index ;">
+                    <span (click)="clickEmoji(i)">{{emo}}</span>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="delete flex-center" *ngIf="delete_discution" (clickOutside)="outsideDeleteDiscution()">
+            <div class="box-delete" (click)="deleteDiscutionComfirme()">
+                <i class="bi bi-trash3"></i> &nbsp;
+                <span>Supprimer la discution</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="detail " *ngIf="loading_detail">
+        <div class="box-loading" >
+            <app-loading [color] = "'pink'"></app-loading>
+        </div>
+    </div>
+    
+
+    <div class="modal delete-discution-comfirme" *ngIf="delete_discution_comfirme">
+        <div class="box-modal-mobil" (clickOutside)="outsideDeleteDiscutionComfirme()">
+            <strong>Voulez vous supprimer cette conversation ?</strong>
+            <p>Cette action est irréversible et le message sera toujours visible pour les autres participants .</p><br>
+            <div class="flex-space-simple">
+                <button class="bout_carre_mobile" style="color: rgb(195 0 0);">Supprimer</button>
+                <button class="bout_carre_mobile" (click)="delete_discution_comfirme = false ; outside_delete_discution_comfirme = false" >Annuler</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal delete-msg-comfirme" *ngIf="delete_msg_comfirme">
+        <div class="box-modal-mobil" (clickOutside)="outsideDeleteMsgComfirme()">
+            <p>Êtes-vous sûr de vouloir supprimer ce message pour tous le monde ?</p><br>
+            <div class="flex-space-simple">
+                <button class="bout_carre_mobile" (click)="deleteMsgComfirme()" style="color: rgb(195 0 0);">Supprimer</button>
+                <button class="bout_carre_mobile" (click)="delete_msg_comfirme = false ; outside_delete_msg_comfirme = false" >Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box-loading" *ngIf="loading">
+    <app-loading [color] = "'pink'"></app-loading>
+</div>

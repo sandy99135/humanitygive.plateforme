@@ -1,0 +1,80 @@
+<form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
+
+<div class="box-loading " *ngIf="loading">
+    <app-loading [color]="'pink'" ></app-loading>
+</div>
+
+<div  *ngIf="!loading">
+
+    <div class="realisation">
+        <h1 class="h1-edit">Réalisation</h1>
+
+        <div class="box-check text-16 pointer relative" style="width: 200px;">
+            <span class="check-rond-plus"><i class="bi bi-plus"></i></span>Ajouter Photo
+            <input type="file" (change)="onFileSelected($event)" class="realiasation_input_file pointer">
+        </div>
+
+        <div class="box-preview" *ngIf="imageUrl">
+            <img [src] ="imageUrl" alt="" srcset="" loading="lazy">
+        </div>
+
+        <div class="error mb_20 flex-space-simple" *ngIf = "imageSize >= maxSize">
+            <span><strong>Size : </strong> {{imageSize  | fileSize}}</span> 
+            <span><strong>L'image doit etre inférieur a : </strong> {{ maxSize | fileSize}}</span> 
+        </div>
+
+        <div class="box-inp">
+            <input type="text" 
+            [(ngModel)]="realisation_titre" 
+            formControlName="realisation_titre"  
+            placeholder="Titre">
+        </div>
+
+        <div class="box-inp-gray">
+            <textarea 
+            [(ngModel)]="realisation_contenu" 
+            formControlName="realisation_contenu" 
+            style="height: 105px; padding: 20px;" name="" id="" cols="30" rows="10" placeholder="Contenu"></textarea>
+        </div>
+
+        <div class="mg_25 flex-space-simple" >
+            <span  class="bout-pink pointer "  (click)="addRealisation()"> 
+                <app-loading *ngIf ="loading_add" ></app-loading> Ajouter
+            </span>
+            <div class="flex-space-simple">
+                <span *ngIf=" update_realisation_index" class="bout-pink pointer m-right-10" (click)="updateRealisation()">
+                     <app-loading *ngIf ="loading_update" ></app-loading> Update
+                </span> 
+                <span class="bout-black pointer " (click)= "retour()">Retour</span>
+            </div>
+        </div>
+
+        <div class="error" *ngIf ="error && !imageUrl">{{error}}</div>
+        <div class="message_succes flex-space-simple" *ngIf ="succes">
+            <span>{{succes}} </span> 
+            <span><i class="bi bi-check-lg"></i></span> 
+        </div>
+
+        <div class="line-large"><hr></div> <br>
+
+        <div class="liste-realisation c_gray ">
+            <div class="box-realisation ">
+                <div class="re-titre flex-space-simple pad_20 " *ngFor = "let tem of details.realisations , let i = index" (click) = choseRealisation(i)>
+                    <div >{{tem.title}}</div> 
+                    <div>
+                        <app-loading [color]="'pink'" *ngIf ="loading_delete_index == i" ></app-loading> 
+                        <i *ngIf ="loading_delete_index != i" class="bi bi-trash3 pointer" (click)="deleteRealisation(i)"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="b-supp"><i class="bi bi-trash3"></i></div> -->
+        </div>
+    </div>
+
+    <br><br>
+
+</div>
+
+</form>
+
+<br><br>

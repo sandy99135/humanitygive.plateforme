@@ -1,0 +1,354 @@
+
+<div class="box-loading" *ngIf="loading">
+    <app-loading [color] = "'pink'"></app-loading>
+</div>
+
+<div class="head-profil">
+    <div class="box-head ground_white rad-15" >
+        <div class="couverture" [style.background-image]="'url(' + couverture_url + ')'"   >
+        <!-- <div class="couverture" style = "background-image: url('{{this.url}}fileName={{data.couvertPicture!.name}}&type={{data.couvertPicture!.type}}')" > -->
+            <div class="modif-couverture flex-center">
+                <i class="bi bi-camera"></i>
+                <input type="file" (change)="couvertureSelected($event)" accept="image/*">
+            </div>
+        </div>
+
+        <div class="modal " *ngIf = "preview_couvert">
+            <div class="box-modal">
+                <div class="flex-space-simple" style="padding-bottom: 20px;">
+                    <span>Edit Couverture</span> 
+                    <div class="flex-center" style="position: relative;background-color: aqua; width: 40px; height: 40px; background-color: var(--hoverBackground); border-radius: 5px;">
+                        <i class="bi bi-camera"></i>
+                        <input type="file" (change)="couvertureSelected($event)" accept="image/*" >
+                    </div>
+                </div>
+
+                <div>
+                    <div class="rad-15" style="max-height: 350px; overflow: hidden;">
+                        <img [src] ="pre_couverture_url" alt="" loading="lazy" width="100%">
+                    </div>
+                </div>
+                
+                <div class="c_gray" style="padding: 20px 0px;">
+                    <span><strong>size :</strong>  {{couvert_taille}}</span> <br>
+                    <span>L'image doit être  large, maximum {{couvert_taille_max}}</span>
+                </div>
+
+                <div class="flex-space-simple ">
+                    <button class="bout_carre bout_pink pointer" (click) = "saveCouvert()" *ngIf = "couvert_valide">
+                        <app-loading *ngIf = "loading_save_couvert" ></app-loading> Enregistrer
+                    </button>
+                    <button class="bout-black-carre pointer" (click) = "preview_couvert = false">Annuler</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="photo-profil flex-center">
+            <img [src]="profil_image" *ngIf="profil_image" alt="Selected Image" loading="lazy"> 
+            <div class="modif-profil flex-center" [ngClass] = "{'visible' : !profil_image}">
+                <i class="bi bi-camera"></i>
+                <input type="file" (change)="fileChangeEvent($event)" accept="image/*">
+            </div>
+        </div>
+
+        <div class="cropper-wrapper flex-center" *ngIf="cropper">
+            <div class="cropper-box">
+                <div class="flex-space-simple mb_20" >
+                    <span>Edit Profil</span> 
+                    <div class="cropper-change flex-center" >
+                        <i class="bi bi-camera"></i>
+                        <input type="file" (change)="fileChangeEvent($event)" accept="image/*">
+                    </div>
+                </div>
+                <div>
+                    <image-cropper id="image-cropper"
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="4 / 4"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                </div>
+
+                <div class="flex-space-simple c_gray" style="padding: 10px 0px;">
+                    <span><strong>size :</strong>  {{cropper_width}} x {{cropper_width}}</span>
+                    <span>MaxSize : {{profil_taille_max}}</span>
+                </div>
+
+                <div class="flex-space-simple">
+                    <button class="bout_carre bout_pink pointer" (click) = "saveProfil()" *ngIf = "cropper_width <= 1024">
+                        <app-loading *ngIf = "loading_save_profil" ></app-loading> Enregistrer
+                    </button>
+                    <button class="bout-black-carre pointer" (click) = "cropper = false">Annuler</button>
+                </div>
+            </div>
+          </div>
+          
+
+        <div class="menu flex-space p-right-20" >
+            <div class="nav flex-start c_gray">
+                <div (click) = "changeDetail(1)" class="pointer" [ngClass] = "{'detail-active' : detail == 1}">A PROPOS</div>
+                <!-- <div (click) = "changeDetail(2)" [ngClass] = "{'detail-active' : detail == 2}"> <span class="mobi-500">JOURNAL D'</span>ACTIVITE </div> -->
+                <div (click) = "changeDetail(3)" class="pointer" [ngClass] = "{'detail-active' : detail == 3}">PHOTOS</div>
+            </div>
+            <div class="soutient">
+                <a routerLink="/user/edit/receiver&mixte&ajout&edit" class="b-cont-mobil "><button class="bout_carre bout_pink"><span class="m-right-10"><i class="bi bi-pen"></i></span>Modifier contenus</button></a>
+                <!-- <a routerLink="/event/create" ><button class="bout_carre bout_pink"><span class="m-right-10"><i class="bi bi-plus-circle"></i></span>Activité</button></a> -->
+            </div>
+        </div>
+    </div> <br>
+
+</div>
+
+
+<!-- ***** -->
+
+<div class="block-profil2">
+
+    <div class="block-detail">
+
+        <div class="a_propos" *ngIf = "detail == 1" >
+
+    <div class="box-denomination ground_white rad-15 pad_20">
+
+        <div class="denomination ">
+            <!-- <h1 class="h1-no-margin "> 
+                <span>{{data.fullName}}</span>
+            </h1><br> -->
+            <div class="deno flex-space-simple">
+                <div class="text-20 denomination_titre" *ngIf="user.type == 0">
+                    <span class="c_pink" >{{data.sectorActivity}}</span> <br>
+                    <span class="c_gray text-16" >Date de création : {{data.apparenceYear}}</span>
+                </div>
+        
+                <div class="contacte c_gray flex-space-simple">
+                    <div class="m-right-30">
+                        <ng-container *ngIf="user.type !== 0">
+                            <h1 class="h1-no-margin " style="color: #054652;" > 
+                                <span>{{data.fullName}}</span>
+                            </h1>
+                            <span class="c_pink" ><i class="bi bi-star-fill"></i> Donneur</span> <br>
+                        </ng-container>
+                        <span>{{data.addresse}}</span>
+                        <span>{{data.region}} {{data.district}} {{data.commune}} {{data.fokotany}}</span>
+                        <span>+261 {{data.phoneNumber}} </span>
+                    </div>
+                    <div>
+                        <span>{{data.email}} </span>
+                        <span>{{data.website}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="box-check text-16">
+            <a routerLink="/user/edit/receiver&mixte"><span class="m-right-10"><i class="bi bi-pen"></i></span> Modifier les informations personnelles</a>
+        </div>
+    </div>
+
+            <div class="bl ground_white pad_20 rad-15" 
+                *ngIf="  !data.mission || !data.biography   || image_home.length == 0 ">
+                <div class="link_ajout c_gray">
+                    <div (click) = "changeDetail(3)" *ngIf="image_home.length == 0" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Photo</div>
+                    <a [routerLink]="['/user/edit/receiver&mixte']" *ngIf="!data.website && user.type == 0" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Site Web</a>
+                    <a [routerLink]="['/user/edit/receiver&mixte&ajout&edit']" *ngIf="!data.mission" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Mission</a>
+                    <a [routerLink]="['/user/edit/receiver&mixte&ajout&edit']" *ngIf="!data.associationTeamInfo && user.type == 0" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Information sur l'equipe</a>
+                    <a [routerLink]="['/user/edit/receiver&mixte&ajout&edit']" *ngIf="!data.biography" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter biographie</a>
+                    <!-- <a [routerLink]="['/user/edit/receiver&mixte&ajout&edit']" *ngIf="!data.need" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Besoin ou Difficulté</a> -->
+                    <a [routerLink]="['/user/edit/realisations']" *ngIf="data.realisations.length == 0 && user.type == 0" class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Réalisation ou Témoignage</a>
+                    <!-- <div class="box-check"><span class="check-rond-plus"><i class="bi bi-plus"></i></span> Ajouter Autre contenu</div> -->
+                </div>
+            </div>
+
+            <!-- giver -->
+            <div class="ground_white pad_20 rad-15" *ngIf="data.mission && user.type !== 0" >
+                <div class="mission" >
+                    <span class="text-20 mb_15">Mission</span>
+                    <p class="c_gray mb_15">{{data.mission}}</p>
+                </div>
+            </div>
+            <!-- receiver -->
+            <ng-container *ngIf="user.type == 0">
+                <div class="ground_white pad_20 rad-15" *ngIf="data.mission || data.associationTeamInfo" >
+                    <div class="mission" *ngIf="data.mission">
+                        <span class="text-20 mb_15">Mission</span>
+                        <p class="c_gray mb_15">{{data.mission}}</p>
+                    </div>
+                    <span class="mb_15" *ngIf="data.associationTeamInfo.headFullname && data.associationTeamInfo != null  && user.type == 0">Fondateur : <span class="">{{data.associationTeamInfo.headFullname}}</span> </span>
+                    <div class="flex-space-simple equipe " *ngIf="data.associationTeamInfo != null && user.type == 0">
+                        <div *ngIf="data.associationTeamInfo.teamNumber != 0 "><span>{{data.associationTeamInfo.teamNumber}}</span>Equipe</div>
+                        <div *ngIf="data.associationTeamInfo.chargeNumber != 0"><span>{{data.associationTeamInfo.chargeNumber}}</span>Charge</div>
+                        <div *ngIf="data.associationTeamInfo.implantationNumber != 0"><span>{{data.associationTeamInfo.implantationNumber}}</span>Implantation</div>
+                        <div *ngIf="data.associationTeamInfo.number != 0"><span>{{data.associationTeamInfo.number}}</span>Parraigné</div>
+                        <div *ngIf="data.associationTeamInfo.state != 0"><span>{{data.associationTeamInfo.state}}</span>{{data.associationTeamInfo.content}}</div>
+                    </div>
+                </div>
+            </ng-container>
+            
+            <div class="b_detail besoin" *ngIf = "user.type == 0">
+                <div class="flex-space-simple  " >
+                    <span class="text-20">Besoin et difficulté</span>
+                </div>
+                <p>Ajouter des détails sur vos besoins ou obstacle pour que les donneurs peuvent voir </p> <br>
+                <div class="flex-space-simple mb_20">
+                    <a routerLink="/user/need/create" class="b-cont-mobil ">
+                        <span class="bout-ronded-black  pointer" ><i class="bi bi-plus-circle-fill"></i> Ajouter un Besoin</span>
+                    </a>
+                    <a routerLink="/user/activite/need" class="b-cont-mobil ">
+                        <span class="bout-ronded-black  pointer" ><i class="bi bi-circle-plus"></i>Voir liste</span>
+                    </a>
+                </div>
+             </div><br>
+
+             
+
+
+            <div class="images ground_white pad_20 rad-15" *ngIf="image_home.length !== 0">
+                <span class="text-20 mb_15">Image</span>
+                <div class="box-images ">
+                    <div class="pointer relative" *ngFor = "let photo of image_home ; let p = index " (click)="ChangeHomeViewImage(p , photo)"  >
+                        <img src="{{imageUrl(photo.name , photo.type)}}" alt="" loading="lazy">
+                        <div class="ombre-image"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="b_detail biographie" *ngIf="data.biography">
+                <div class="flex-space-simple  " >
+                    <span class="text-20">Biographie</span>
+                </div>
+                <p>{{data.biography}}</p>
+            </div>
+
+
+            <div class="b_detail temoignage" *ngIf="data.realisations.length != 0">
+                <div  class="flex-space-simple">
+                    <span class="text-20" style="width: 60%;">Réalisation et Temoignage</span>
+                    <a routerLink="/user/edit/realisations" >
+                    <button class="bout-ronded-black  pointer" style="font-size: 17px;">
+                        <span *ngIf="data.realisations.length == 0"> <i class="bi bi-plus-circle-fill m-right-10"></i>Ajouter </span> 
+                        <span *ngIf="data.realisations.length != 0"> <i class="bi bi-pen m-right-10"></i> Contenu </span>
+                    </button>
+                    </a>
+                </div><br>
+                
+                <div class="box-temeoignage ">
+                    <div class="bx-tem flex-space" *ngFor =" let realisation of data.realisations">
+                        <div class="temoignage-image" [style.background-image]=" realisation.photo ? 'url(' + imageUrl( realisation.photo!.name!, realisation.photo!.type!) + ')' : 'none'">
+                            <!-- <img src ="{{imageUrl( realisation.photo!.name!, realisation.photo!.type!)}}" *ngIf ="realisation.photo" alt="" loading="lazy"> -->
+                        </div> 
+                        <div class="temoignage-contenu">
+                            <div class="text-20 mb_10">{{realisation.title}}</div>
+                            <div class="c_gray">{{realisation.description}}</div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- *** Activité *** -->
+    
+        <!-- <div class="journal" *ngIf = "detail == 2">
+
+        </div> -->
+
+
+
+
+        <!-- *** Image *** -->
+        <div class="image ground_white pad_20 rad-15" *ngIf = "detail == 3 && !data.localPictures">
+            <span class="text-20 mb_15">Images</span>
+            <i class="bi bi-image-fill" style="font-size: 56px; color: gainsboro;"></i>
+        </div>
+
+        <div class="images ground_white pad_20 rad-15" *ngIf = "detail == 3 && data.localPictures">
+            <span class="text-20 mb_15">Image</span>
+
+            <div class="mb_20">
+                <div class="upload flex-center ">
+                    <input type="file" (change)="onFileChange($event)" multiple>
+                    <i class="bi bi-cloud-arrow-down-fill p-right-20"></i> 
+                    <span class="c_gray">Choose files</span>
+                </div>
+            </div>
+
+            <div class="box_preview">
+                <div *ngFor="let image of imagePreviews ; let i = index ;">
+                    <div class="image-preview ">
+                      <div class="image-content"><img [src]="image.src"></div>
+                      <div class="image-info">
+                        <div class="image-info-detail">
+                            <p>{{ image.name }}</p>
+                            <p [ngStyle] = "styleMaxSizePreview(image.size)"><strong>Size:</strong> {{ image.size | fileSize }}</p>
+                        </div>
+                        <div class="image-info-x pointer" (click) = "deletePreview(i , image.name)"><i class="bi bi-x"></i></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button *ngIf = "imagePreviews.length != 0 && valideSize" 
+                    (click) = "savePreview()"
+                    class="mb_20 bout_carre bout_pink pointer save_local_picture" 
+                    style="width: 400px;">
+                    <app-loading *ngIf="loading_local_pictures"></app-loading>
+                    Sauvegarder
+                  </button>
+
+                  <div class="error " style="margin-bottom: 20px;" *ngIf ="imagePreviews.length != 0 && !valideSize">
+                    <span>{{outSizeArray.length }} image<span *ngIf ="outSizeArray.length > 1">s</span> supérieure à 1 Mo détecté</span>
+                  </div>
+
+                  <div class="error " style="margin-bottom: 20px;" *ngIf ="error_localPictures">
+                    <span>Une erreur s'est produite. Veuillez réessayer.</span>
+                  </div>
+            </div>
+
+
+            <div class="box-images " >
+                <div class="pointer relative" *ngFor = "let photo of data.localPictures ; let p = index " (click)="ChangeViewImage(p , photo)"  >
+                    <img src="{{imageUrl(photo.name , photo.type)}}" alt="" loading="lazy">
+                    <div class="ombre-image"></div>
+                </div>
+            </div>
+
+
+            <div class="view-image" *ngIf="affListImage">
+                <div class="view-return">
+                    <button class="m-right-10" (click)="deleteImage()" >
+                        <app-loading *ngIf="loading_delete"></app-loading> Supprimer
+                    </button> 
+                    <button  (click)="closeViewImage()">Retour</button>
+                </div>
+                <div class="view-selecte">
+                        <img src="{{viewImage}}" alt="" srcset="" loading="lazy">
+                </div>
+                <button class="btn view-prev" *ngIf="indexViewImage >= 1" (click)="ChangeView('prev')">
+                    <i class="bi bi-caret-left-fill"></i>
+                </button>
+                <button class="btn view-next" *ngIf="indexViewImage < ((data.localPictures).length)-1 " (click)="ChangeView('next')" >
+                    <i class="bi bi-caret-right-fill"></i>
+                </button>
+                <div #scrollableDiv class="liste">
+                <div  *ngFor="let image of data.localPictures ; let i = index " style="background-image: url('{{ imageUrl(image.name , image.type)}}')" (click)="ChangeViewImage( i , image)" [ngClass]="{ activeView : indexViewImage == i}" ></div>
+                </div>
+           </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    
+
+</div>
+

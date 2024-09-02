@@ -1,0 +1,80 @@
+.block_donate{
+    width: var(--mesure_auth);
+    margin: 20px auto;
+}
+
+.donate-link {
+    padding-right: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+
+    background: white;
+    // background-image: linear-gradient(to left,
+    // transparent,
+    // transparent 50%,
+    // var(--pink) 50%,
+    // var(--pink));
+    // background-position: 99% 0;
+    // background-size: 200% 100%;
+    // transition: all .35s ease-in;
+
+    cursor: pointer;
+
+    .dlink{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .icone  {
+        display: block;
+        width: 65px;
+        height: 65px;
+        margin-right: 20px;
+        border-radius: 15px;
+        background-color: var(--pink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .icone i {
+        vertical-align: -0.25em;
+        font-size: 30px;
+        font-weight: bolder;
+        color : white ;
+    }
+}
+
+.donate-link:hover .icone{
+    transition: 0.2s;
+    background-color: var(--hoverBackground );
+    i {
+        color : var(--pink);
+    }
+}
+
+// .donate-link:hover {
+//     background-color: var(--pink);
+//     color:white;
+//     transition: background 0.1s;
+// }
+
+.view-need-liste .dlink{
+    background-color: var(--hoverBackground);
+    height: 65px;
+    border-radius: 15px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.view-need-liste .dlink:hover{
+    background-color: var(--pink);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+

@@ -1,0 +1,135 @@
+<div class="block-donate-view">
+
+    <div class="box-profil flex-start">
+        <div class="profil flex-center">
+            <ng-container *ngIf ="user.type == 1 && data.receiver.profilPicture != null">
+                <img src="{{imageUrl(data.receiver.profilPicture.name , data.receiver.profilPicture.type)}}" alt="" loading="lazy"> 
+             </ng-container>
+             <ng-container *ngIf ="user.type == 1 && data.receiver.profilPicture == null"> 
+                 <i   class="bi bi-person-fill"></i>
+             </ng-container>
+             <ng-container *ngIf ="user.type !== 1 && data.giver.profilPicture != null">
+               <img src="{{imageUrl(data.giver.profilPicture.name , data.giver.profilPicture.type)}}" alt="" loading="lazy"> 
+             </ng-container>
+             <ng-container *ngIf ="user.type !== 1 && data.giver.profilPicture == null"> 
+                 <i   class="bi bi-person-fill"></i>
+             </ng-container>
+        </div>
+        <h1 class="h1-no-margin">
+            <span *ngIf="user.type == 1">{{data.receiver.fullName}}</span>
+            <span *ngIf="user.type !== 1">{{data.giver.fullName}}</span>""
+        </h1>
+    </div>
+
+    <!-- <div class="box-image"></div> -->
+
+    <div class="box-info">
+        <div class="box">
+            <div class="flex-space-simple">
+                <h2 style="margin: 0px; margin-bottom: 20px;">
+                    <span>{{ dictionnaire.donate.get(data.type) }}</span>
+                </h2>
+                <span>{{data.createdAt | timeAgo}}</span>
+                <!-- <span class="c_gray flex-center rad-15"><i class="bi bi-circle-fill "></i></span> -->
+            </div>
+
+            <div class="panier">
+                <div *ngFor="let gift of data.don ; let i = index ;" class="pad_14_simple flex-space-simple">
+                    <div class="flex-start">
+                        <span style="display: block; width: 50px;">{{gift.quantity}}</span>
+                        <span>{{gift.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="m-top-20">
+                <button class="bout_carre bout_pink"> Je soutient </button>
+            </div> -->
+        </div>
+
+
+
+        <div class="box m-top-20">
+            <div class="mb_20">
+                <strong><span>Processus de livraison</span></strong>
+            </div>
+            <div class="flex-space-simple m-top-20 mb_20">
+                <span class="bout-ronded-black ">{{processus}}</span>
+                <span class="bout-ronded-gray pointer" (click) ="modal_delivery = true"
+                    [ngClass]="{'b-jaune' : data.state == 'en cours' || data.state == 'Attente de comfirmation', 'b-gray-low': data.state == 'annulé' , 'b-green-low' : data.state == 'Livré'}">
+                    {{data.state}}
+                </span>
+            </div>
+
+            <div>
+                <span *ngIf="user.type == 1 && data.deliveryType!== 1">Vous pouvez livrer vos dons et visiter
+                    l'association </span> <br>
+                <span *ngIf="user.type !== 1 && data.deliveryType == 1">Vous pouvez récupérer les dons à cette date
+                </span> <br>
+                <strong>
+                    <span *ngIf="data.deliveryType == 1">{{data.deliveryDate | day}} {{data.deliveryDate | mounth}}
+                        {{data.deliveryDate | year}}</span>
+                    <span *ngIf="data.deliveryType !== 1">Du Lundi au Vendredi</span><br>
+                    <span>Entre {{data.startHours}} a {{data.endHours}}h</span> <br>
+                    <span>{{data.place}}</span><br>
+                    <span> Contacte : 0{{data.contact}} </span>
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- <div class="donate_image">
+        <div class="box-image2"></div>
+        <div class="box-image2"></div>
+        <div class="box-image2"></div>
+    </div> -->
+
+    <div class="flex-space-simple">
+        <div *ngIf="user.type == 1 ">
+            <button *ngIf="data.state == 'en cours'" class="bout-mobil bout-black m-right-20 pointer" (click)="update()">Modifier</button>
+            <button class=" bout-mobil bout-black pointer" (click)="modal_delete = true">Supprimer</button>
+        </div>
+        <a routerLink="/user/activite/donate"><button class="bout-black pointer">Retour </button></a>
+    </div>
+
+    <div class="error m-top-20" *ngIf ="error_delete"> <span> Une erreur s'est produit , supression annulé </span> </div>
+
+    <div class="modal" *ngIf="modal_delete">
+        <div class="box-modal">
+            <div>Souhaitez-vous vraiment supprimer ce don?</div> <br>
+            <div class="flex-space-simple">
+                <button class="bout-pink pointer" (click)="delete()">
+                    <app-loading  *ngIf="loading_delete"></app-loading>
+                    <span> Supprimer</span>
+                </button>
+                <button class="bout-black pointer" (click)="modal_delete = false">Retour</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" *ngIf="modal_delivery">
+        <div class="box-modal">
+            <div>
+                <span *ngIf ="!error_isDelivery"> Je confirme que le don a été livré.</span>
+                <span *ngIf ="error_isDelivery" style="color: rgb(136, 17, 17);"> Une erreur s'est produit </span>
+            </div> <br>
+            <div class="flex-space-simple">
+                <button class="bout-pink pointer" *ngIf ="!error_isDelivery" (click)=" DeliveryConfirm()">
+                    <app-loading  *ngIf="loading_isDelivery"></app-loading>
+                    <span> Livré</span>
+                </button>
+                <button class="bout-pink pointer" *ngIf ="error_isDelivery" (click)=" DeliveryConfirm()">
+                    <app-loading  *ngIf="loading_isDelivery"></app-loading>
+                    <span> Réessayer</span>
+                </button>
+                <button class="bout-black pointer" (click)="modal_delivery = false">Retour</button>
+            </div>
+        </div>
+    </div>
+
+
+    <br> <br>
+
+</div>

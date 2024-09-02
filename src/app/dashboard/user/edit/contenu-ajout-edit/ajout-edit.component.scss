@@ -1,0 +1,65 @@
+.mobi-save {
+    text-align: center;
+    display: none;
+}
+
+.save-bas {
+        text-align: right;
+}
+
+.re-titre{
+    // height: 60px;
+    color: var(--g43xpl6);
+    border-radius: 16px ; 
+    background-color: var(--hoverBackground );
+    margin-bottom: 10px;
+}
+
+.liste-realisation  p{
+    width: 70% ;
+}
+
+.box-realisation i:hover {
+    transition: 0.2s;
+    color: var(--pink);
+}
+
+@media only screen and (max-width: 1000px) {
+    .info-equipe {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .box-realisation  {
+        display: block;
+    }
+
+    .re-image{
+        width: 100% ;
+        height: 200px;
+    }
+
+    .liste-realisation  p{
+        width: 100% ;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .mobi-save {
+        display: block;
+    }
+    .save {
+        display: none;
+    }
+
+    .save-bas {
+       display: flex;
+       justify-content: space-between;
+    }
+
+    .mobi-none{
+        display: none;
+    }
+}

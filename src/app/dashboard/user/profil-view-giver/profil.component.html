@@ -1,0 +1,170 @@
+<div class="box-loading" *ngIf="loading">
+    <app-loading [color] = "'pink'"></app-loading>
+</div>
+
+<div class="head-profil" *ngIf = '!loading'>
+    <div class="box-head ground_white rad-15" >
+        <div class="couverture" [style.background-image]="'url(' + couverture_url + ')'"  ></div>
+
+        <div class="photo-profil">
+            <img [src]="profil_image" *ngIf="profil_image" alt="Selected Image" loading="lazy"> 
+        </div>
+
+        <div class="menu flex-space p-right-20" >
+            <div class="nav flex-start c_gray">
+                <div (click) = "changeDetail(1)" [ngClass] = "{'detail-active' : detail == 1}">A PROPOS</div>
+                <div (click) = "changeDetail(3)" [ngClass] = "{'detail-active' : detail == 3}">PHOTOS</div>
+            </div>
+            <!-- <div class="soutient" *ngIf = "user.type == 1" >
+                <button class="bout_carre bout_pink" (click) = "soutenir()"> Je soutient cette asxxx</button>
+            </div> -->
+        </div>
+    </div> <br>
+
+</div>
+
+
+<!-- ***** -->
+
+<div class="block-profil2" *ngIf = '!loading'>
+
+    <div class="block-detail">
+
+        <div class="a_propos" *ngIf = "detail == 1">
+
+            
+            <div class="box-denomination ground_white rad-15 pad_20">
+
+                <div class="denomination ">
+                    <h1 class="h1-no-margin "> 
+                        <span>{{data.fullName}}</span>
+                    </h1>
+                    <div>
+                        <div class="text-20 mb_10">
+                            <span class="c_pink"><i class="bi bi-star-fill"></i> Donneur</span> <br>
+                            <!-- <span class="c_gray text-16">Date de création : {{data.apparenceYear}}</span> -->
+                        </div>
+                
+                        <div class="contacte c_gray ">
+                            <div class="m-right-30">
+                                <!-- <span>{{data.addresse}}</span> -->
+                                <span>{{data.region}} {{data.district}} </span>
+                                <!-- <span>{{data.commune}} {{data.fokotany}}</span> -->
+                                <span>+261 {{data.phoneNumber}} </span>
+                            </div>
+                            <div>
+                                <span>{{data.email}} </span>
+                                <span>{{data.website}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="ground_white pad_20 rad-15" *ngIf="data.mission || data.associationTeamInfo" >
+                <div class="mission" *ngIf="data.mission">
+                    <span class="text-20 mb_15">Mission</span>
+                    <p class="c_gray mb_15">{{data.mission}}</p>
+                </div>
+                <span class="mb_15" *ngIf="data.associationTeamInfo.headFullname && data.associationTeamInfo != null  ">Fondateur : <span class="">{{data.associationTeamInfo.headFullname}}</span> </span>
+                <div class="flex-space-simple equipe " *ngIf="data.associationTeamInfo != null">
+                    <div *ngIf="data.associationTeamInfo.teamNumber != 0 "><span>{{data.associationTeamInfo.teamNumber}}</span>Equipe</div>
+                    <div *ngIf="data.associationTeamInfo.chargeNumber != 0"><span>{{data.associationTeamInfo.chargeNumber}}</span>Charge</div>
+                    <div *ngIf="data.associationTeamInfo.implantationNumber != 0"><span>{{data.associationTeamInfo.implantationNumber}}</span>Implantation</div>
+                    <div *ngIf="data.associationTeamInfo.number != 0"><span>{{data.associationTeamInfo.number}}</span>Parraigné</div>
+                    <div *ngIf="data.associationTeamInfo.state != 0"><span>{{data.associationTeamInfo.state}}</span>{{data.associationTeamInfo.content}}</div>
+                </div>
+            </div><br> -->
+
+            <div class="images ground_white pad_20 rad-15" *ngIf="image_home.length !== 0">
+                <span class="text-20 mb_15">Images</span>
+                <div class="box-images ">
+                    <div class="pointer relative" *ngFor = "let photo of image_home ; let p = index " (click)="ChangeHomeViewImage(p , photo)"  >
+                        <img src="{{imageUrl(photo.name , photo.type)}}" alt="" loading="lazy">
+                        <div class="ombre-image"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="b_detail biographie" *ngIf="data.biography">
+                <div class="flex-space-simple  " >
+                    <span class="text-20">Biographie</span>
+                </div>
+                <p>{{data.biography}}</p>
+            </div>
+
+    
+
+            <!-- <div class="b_detail besoin" *ngIf="data.need">
+                <div class="flex-space-simple  " >
+                    <span class="text-20">Besoin et difficulté</span>
+                </div>
+                <p>{{data.need}}</p>
+             </div> -->
+
+             <div class="b_detail temoignage" *ngIf="data.realisations">
+                <div >
+                    <span class="text-20">Temoignage</span>
+                </div><br>
+                <div class="box-temeoignage ">
+                    <div class="bx-tem flex-space" *ngFor =" let realisation of data.realisations">
+                        <div class="temoignage-image" [style.background-image]=" realisation.photo ? 'url(' + imageUrl( realisation.photo!.name!, realisation.photo!.type!) + ')' : 'none'">
+                        </div> 
+                        <div class="temoignage-contenu">
+                            <div class="text-20 mb_10">{{realisation.title}}</div>
+                            <div class="c_gray">{{realisation.description}}</div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div class="journal" *ngIf = "detail == 2">
+
+        </div> -->
+    
+
+        <!-- *** Image *** -->
+
+        <div class="image ground_white pad_20 rad-15" *ngIf = "detail == 3 && !data.localPictures">
+            <span class="text-20 mb_15">Images</span>
+            <i class="bi bi-image-fill" style="font-size: 56px; color: gainsboro;"></i>
+        </div>
+
+        <div class="images ground_white pad_20 rad-15" *ngIf = "detail == 3 && data.localPictures" >
+            <span class="text-20 mb_15">Images</span>
+            
+            <div class="box-images " >
+                <div class="pointer relative" *ngFor = "let photo of data.localPictures ; let p = index " (click)="ChangeViewImage(p , photo)"  >
+                    <img src="{{imageUrl(photo.name , photo.type)}}" alt="" loading="lazy">
+                    <div class="ombre-image"></div>
+                </div>
+            </div>
+
+
+           <div class="view-image" *ngIf="affListImage">
+            <div class="view-return">
+                <button  (click)="closeViewImage()">Retour</button>
+            </div>
+            <div class="view-selecte">
+                    <img src="{{viewImage}}" alt="" srcset="" loading="lazy">
+            </div>
+            <button class="btn view-prev" *ngIf="indexViewImage >= 1" (click)="ChangeView('prev')">
+                <i class="bi bi-caret-left-fill"></i>
+            </button>
+            <button class="btn view-next" *ngIf="indexViewImage < ((data.localPictures).length)-1 " (click)="ChangeView('next')" >
+                <i class="bi bi-caret-right-fill"></i>
+            </button>
+            <div #scrollableDiv class="liste">
+            <div  *ngFor="let image of data.localPictures ; let i = index " style="background-image: url('{{ imageUrl(image.name , image.type)}}')" (click)="ChangeViewImage( i , image)" [ngClass]="{ activeView : indexViewImage == i}" ></div>
+            </div>
+       </div>
+
+        </div>
+
+    
+    </div>
+
+</div>
+

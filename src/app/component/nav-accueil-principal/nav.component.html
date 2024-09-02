@@ -1,0 +1,76 @@
+
+  <header class="pc">
+    <div class="navbar flex-space">
+      <!-- <div class=" logo"> 
+        <img src="/assets/images/logo.png" alt="">
+      </div> -->
+
+      <div class="search_connexion flex-space">
+        <div class="user-menu">
+          <a (click) = "menuActive(1)" [ngClass] = "{'menu-active': menu_active == 1}" routerLink="/home" >  <span>Accueil</span></a>
+          <a (click) = "menuActive(2)" [ngClass] = "{'menu-active': menu_active == 2}" routerLink="/home" >  <span>Qui sommes-nous?</span> </a>
+          <a (click) = "menuActive(3)" [ngClass] = "{'menu-active': menu_active == 3}" routerLink="/contacte" >  <span>Nous contacter</span> </a>
+        </div>
+
+        <div class="connexion_logged flex-space">
+          <a  class="m-right-30" routerLink="/recherche"><i class="bi bi-search m-right-10"></i><span>Recherche</span> </a>
+          <a  class="m-right-30 a-inscription" routerLink="/auth/register/email"><span>Inscription</span> </a>
+          <a   routerLink="/auth/login/email"><span>Connexion</span> </a>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- Mobile -->
+
+  <header class="mobile">
+    <div class="navbar flex-space">
+      <div class="m ">
+        <div class="hamberger flex-center pointer" [ngClass]="{'hamb-active' : hamberger}" (click) ="affHamberger()">
+          <i class="bi bi-menu-app-fill"></i>
+        </div>
+      </div>
+      
+      <!-- <div class="m logo"> 
+        <img src="/assets/images/logo.png" alt="">
+      </div> -->
+
+      <div class="m flex-space mobi-con">
+        <div class="connexion_logged flex-space">
+          <a  routerLink="/recherche"><i class="bi bi-search m-right-10"></i></a>
+          
+          <div class=" pointer" (click) = "showAuth()">
+            <div class="nav-profil flex-center">
+              <i class="bi bi-person-fill"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="show-auth-mobile" 
+            *ngIf = "show_auth"
+            clickOutside
+            (clickOutside)="handleClickOutsideFiltre()">
+            <a  class="m-right-30 a-inscription" routerLink="/auth/register/email"><div class="flex-space"><span>Inscription</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+            <a  routerLink="/auth/login/email"><div class="flex-space"><span>Connexion</span><span><i class="bi bi-chevron-right"></i></span></div></a>   
+        </div>
+      </div>
+
+    </div>
+
+    <div class="menu-hamberger" *ngIf = "hamberger" (clickOutside)="handleClickOutsideHamberger()">
+      <a (click) = "menuActive(1)" [ngClass] = "{'menu-active': menu_active == 1}" routerLink="/home" ><div class="flex-space"><span>Accueil</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <a (click) = "menuActive(2)" [ngClass] = "{'menu-active': menu_active == 2}" routerLink="/home" ><div class="flex-space"><span>Qui sommes-nous?</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <a (click) = "menuActive(3)" [ngClass] = "{'menu-active': menu_active == 3}" routerLink="/contacte" ><div class="flex-space"><span>Nous contacter</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+     
+      <div>
+        <a (click) = "menuActive(4)" routerLink="/recherche">
+          <div class="flex-space  bout_carre bout_pink_doux">
+            <span><i class="bi bi-search m-right-10 "></i> <span>Trouver Association</span></span>
+            <span><i class="bi bi-chevron-right"></i></span>
+          </div>
+        </a> 
+      </div>
+    </div>
+  </header>

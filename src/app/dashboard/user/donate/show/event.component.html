@@ -1,0 +1,45 @@
+<div class="box-profil flex-start">
+    <div class="profil"></div>
+    <h1 class="h1-no-margin">xxxxx xxxxxxxxx xxxx</h1>
+</div>
+
+<div class="event-show flex-space-simple">
+    <div class="box-image">
+        <img src="" alt="">
+    </div>
+
+    <div class="box-info">
+        <h1 class="h1-no-margin ">CategorieOuTitle</h1>
+        <p class="mmg_10 c_gray">xxxxx xxxx x xxxxxxxxxxxxx xxxxxxxxxx xx x xxxxxxxxxxxxx xxxxxxxxx xxxxxxxxx</p>
+
+        <div class="mmg_20">
+            <span>4</span>
+            <span class="c_gray"> Contributeur</span>
+        </div>
+
+        <div class="mg_25">
+            <div class="flex-space">
+                <span>Raised</span>
+                <span>Left</span>
+            </div>
+            <div class="barre">
+                <div class="raised-barre"></div>
+            </div>
+            <span>65% of xxxx</span>
+        </div>
+
+        <div class="flex-space-simple">
+            <button class="bout_carre bout_pink"> Je soutient ce projet</button>
+            <button class="bout_carre bout_violet"> Suivre</button>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="block-detail">
+    <div class="nav flex-start">
+        <div (click)="changeDetail(1)" [ngClass]="{'detail-active' : detail == 1}">A PROPOS</div>
+        <div (click)="changeDetail(3)" [ngClass]="{'detail-active' : detail == 2}">COMMENTAIRE</div>
+    </div>
+</div>

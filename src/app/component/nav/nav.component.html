@@ -1,0 +1,111 @@
+<header class="pc">
+    <div class="navbar flex-space">
+      <!-- <div class="logo"> 
+        <img src="/assets/images/logo.png" alt="">
+      </div> -->
+
+      <div class="search_connexion flex-space">
+        <div class="user-menu">
+          <a (click) = "menuActive(1)" [ngClass] = "{'menu-active': menu_active == 1}" routerLink="/user/home/association" >  <span>Accueil</span></a>
+          <a (click) = "menuActive(2)" [ngClass] = "{'menu-active': menu_active == 2}" routerLink="/user/profile" > <span>Mon profil</span></a>
+          <a (click) = "menuActive(3)" [ngClass] = "{'menu-active': menu_active == 3}" routerLink="/user/activite/donate" >  <span>Activité</span> </a>
+          <a (click) = "menuActive(4)" [ngClass] = "{'menu-active': menu_active == 4}" routerLink="/user/chat" >  <span>Chat</span> </a>
+          <a (click) = "menuActive(5)" [ngClass] = "{'menu-active': menu_active == 5}" routerLink="/user/compte" >  <span>Compte</span> </a>
+        </div>
+  
+        <div class="connexion_logged flex-space">
+          <a  class="m-right-30" routerLink="/user/recherche">
+            <i class="bi bi-search m-right-10"></i>
+            <span>Recherche</span> 
+          </a>
+          <!-- <div class="m-right-30">
+            <a routerLink="/user/need/create">
+              <i class="bi bi-plus-circle m-right-10"></i>
+              <span>Ajouter un besoin</span> 
+            </a> 
+          </div> -->
+
+          <div class="flex-space pointer" (click) = "showAuth()">
+            <div class="nav-profil flex-center">
+              <!-- <img *ngIf="user.profilePicture !== ''" src="{{imageUrl(user.profilePicture , user.pictureType )}}" alt="" loading="lazy">
+              <i   *ngIf="user.profilePicture == ''" class="bi bi-person-fill"></i> -->
+            </div>
+            <span class="c_down"><i class="bi bi-chevron-down"></i></span>
+          </div>
+        </div>
+
+        <div class="show-auth" 
+            *ngIf = "show_auth"
+            clickOutside
+            (clickOutside)="handleClickOutsideFiltre()">
+           <div class="flex-space" style="background-color: var(--pink);color: white;"><span>{{user.fullName}}</span> <span>Compte {{compte}}</span></div>
+           <a routerLink="/user/compte" (click) = "menuActive(4)" style="text-decoration: none; color: var(--g43xpl6);"><div class="flex-space"  ><span> Compte</span><span><i class="bi bi-chevron-right"></i></span></div></a> 
+           <div class="flex-space" (click) = "logOut()"><span>Déconnexion</span><span><i class="bi bi-chevron-right"></i></span></div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- Mobile -->
+
+  <header class="mobile">
+    <div class="navbar flex-space">
+      <div class="m ">
+        <div class="hamberger flex-center pointer" [ngClass]="{'hamb-active' : hamberger}" (click) ="affHamberger()">
+          <i class="bi bi-menu-app-fill"></i>
+        </div>
+      </div>
+      
+      <!-- <div class="m logo"> 
+        <img src="/assets/images/logo.png" alt="">
+      </div> -->
+
+      <div class="m flex-space mobi-con">
+        <div class="connexion_logged flex-space">
+          <a  class="m-right-30" routerLink="/user/recherche"><i class="bi bi-search m-right-10"></i></a>
+          <!-- <a routerLink="/event/create"><i class="bi bi-plus-circle m-right-10"></i></a>  -->
+          
+          <div class=" pointer" (click) = "showAuth()">
+            <!-- <div class="nav-profil flex-center">
+              <img *ngIf="user.profilePicture !== ''" src="{{imageUrl(user.profilePicture , user.pictureType )}}" alt="" loading="lazy">
+              <i   *ngIf="user.profilePicture == ''" class="bi bi-person-fill"></i>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="show-auth-mobile" 
+            *ngIf = "show_auth"
+            clickOutside
+            (clickOutside)="handleClickOutsideFiltre()">
+            <div class="flex-space" style="background-color: var(--pink);color: white;"><span>{{user.fullName}}</span> <span>Compte {{compte}}</span></div>
+           <a routerLink="/user/compte" (click) = "menuActive(4)" style="text-decoration: none;color: var(--g43xpl6);"><div class="flex-space"  ><span> Compte</span><span><i class="bi bi-chevron-right"></i></span></div></a> 
+           <div class="flex-space" (click) = "logOut()"><span>Déconnexion</span><span><i class="bi bi-chevron-right"></i></span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="menu-hamberger" *ngIf = "hamberger" (clickOutside)="handleClickOutsideHamberger()">
+      <a (click) = "menuActive(1)" [ngClass] = "{'menu-active': menu_active == 1}" routerLink="/user/home/association" ><div class="flex-space"><span>Accueil</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <a (click) = "menuActive(2)" [ngClass] = "{'menu-active': menu_active == 2}" routerLink="/user/profile" ><div class="flex-space"><span>profile</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <a (click) = "menuActive(3)" [ngClass] = "{'menu-active': menu_active == 3}" routerLink="/user/activite/donate" ><div class="flex-space"><span>Activité</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <a (click) = "menuActive(4)" [ngClass] = "{'menu-active': menu_active == 4}" routerLink="/user/chat" ><div class="flex-space"><span>Chat</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <a (click) = "menuActive(54)" [ngClass] = "{'menu-active': menu_active == 5}" routerLink="/user/compte"><div class="flex-space"><span>Compte</span><span><i class="bi bi-chevron-right"></i></span></div></a>
+      <div>
+        <!-- <a (click) = "menuActive(5)" routerLink="/user/need/create" class="mb_15">
+          <div class="flex-space bout_carre bout_pink ">
+            <span><i class="bi bi-plus-circle m-right-10 "></i> <span>Ajouter un besoin</span></span>
+            <span><i class="bi bi-chevron-right"></i></span>
+          </div>
+        </a>  -->
+        <a (click) = "menuActive(6)" routerLink="/user/recherche">
+          <div class="flex-space  bout_carre bout_pink">
+            <span><i class="bi bi-search m-right-10 "></i> <span>Trouver Association</span></span>
+            <span><i class="bi bi-chevron-right"></i></span>
+          </div>
+        </a> 
+      </div>
+    </div>
+  </header>

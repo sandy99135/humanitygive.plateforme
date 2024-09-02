@@ -1,0 +1,209 @@
+<div class="apercu flex-space">
+    <div class="boxa" [ngClass]="{'active': menu_active == 1}" (click)="menu(1)">
+        <div class="flex-space">
+            <span class="text-20">All Utilisateur</span>
+            <span><i class="bi bi-circle-fill"></i></span>
+        </div>
+        <div class="chiffre">{{total}}</div>
+    </div>
+    <div class="boxa" [ngClass]="{'active': menu_active == 2}" (click)="menu(2)">
+        <div class="flex-space">
+            <span class="text-20">Donneur</span>
+            <span><i class="bi bi-circle-fill"></i></span>
+        </div>
+        <div class="chiffre">{{nb.giver}}</div>
+    </div>
+    <div class="boxa" [ngClass]="{'active': menu_active == 3}" (click)="menu(3)">
+        <div class="flex-space">
+            <span class="text-20">Association</span>
+            <span><i class="bi bi-circle-fill"></i></span>
+        </div>
+        <div class="chiffre">{{nb.receiver}}</div>
+    </div>
+</div>
+
+<h1 class="h1-left">Trouver utilisateur</h1>
+
+<div class="search">
+    <div class="box-search flex-space">
+        <div class="search-all">
+            <i class="bi bi-circle-fill"></i>
+            <input type="text" placeholder="Rechercher" (keyup.enter)="search()" [(ngModel)]="search_text">
+        </div>
+        <button (click) = "search()" class="pointer"><span class="search-bt-text ">Recherche</span></button>
+    </div>
+</div>
+
+
+<div class="search_loading flex-center" *ngIf="loading">
+    <app-loading [color] = "'pink'"></app-loading>
+</div>
+
+<div class="block-resulat " *ngIf="!loading">
+
+    <div class="mb_20 p-left-20 text-20 flex-space-simple" >
+        <div>
+            <span *ngIf="data.length > 0">{{total}} résultat<span *ngIf="total > 1">s</span> trouvé<span *ngIf="total > 1">s</span> </span>
+            <span *ngIf="data.length == 0">Aucun résultat trouvé </span>
+        </div>
+        <button class="bout_filtre pointer" (click)="affFiltre()" [ngClass]="{'bout_filtre_active': filtre}">
+            <i class="bi bi-filter m-right-20" ></i> Filtre 
+        </button>
+    </div>
+
+    <div  class="resultat flex-space-simple">
+        <div class="Bliste" >
+            <div class="block-liste" *ngIf="!loading_filtre">
+                <div *ngFor=" let utilisateur of data" class="liste">
+                    <div class="receiver">
+                        <div class="box-content" (click)="viewProfil(utilisateur.id)">
+                            <div class="content">
+                                <div class="b-profil">
+                                    <div class="profil">
+                                        <img src="{{imageUrl(utilisateur.profilPicture.name , utilisateur.profilPicture.type)}}" alt="" loading="lazy" >
+                                    </div>
+                                </div>
+                                <div class="contenu">
+                                    <span class="rec_name">{{utilisateur.fullName}} <span class="c_gray"> → </span> </span>
+                                    <div class="flex-space-simple">
+                                        <span class="c_gray">{{utilisateur.addresse}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="icone_02">
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+    
+            <div class="search_loading flex-center" *ngIf="loading_filtre">
+                <app-loading [color] = "'pink'"></app-loading>
+            </div>
+            
+        </div>
+    
+        <div class="filtre" *ngIf="filtre">
+            <div style="margin-bottom: 40px;">
+                <div class="box-conx-inp view-mobil">
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select  >
+                        <option value="" selected disabled>Utilisateur</option>
+                        <option value="secteur" >Donneur</option>
+                        <option value="secteur" >Association</option>
+                        <option value="secteur" >Tous</option>
+                    </select>
+                </div>
+                <div class="box-conx-inp">
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select  >
+                        <option value="" selected disabled>Secteur d'activité</option>
+                        <option [value]="secteur" *ngFor="let secteur of secteurs">{{secteur}}</option>
+                    </select>
+                </div>
+
+                <div class="box-conx-inp">
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select  (change)="changeProvince($event)">
+                        <option value="" selected disabled>Province</option>
+                        <option [value]="prov" *ngFor="let prov of province">{{prov}}</option>
+                    </select>
+                    
+                </div>
+        
+                <div class="box-conx-inp">
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select  (change)="changeRegion($event)">
+                        <option value="" selected disabled>Région</option>
+                        <option [value]="reg.name" *ngFor="let reg of region">{{reg.name}}</option>
+                    </select>
+                </div>
+        
+                <div class="box-conx-inp">
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select   (change)="changeDistrict($event)">
+                        <option value="" selected disabled >District</option>
+                        <option [value]="dis.libelle" *ngFor = "let dis of district">{{dis.libelle}}</option>
+                    </select>
+                </div>
+        
+                <div class="box-conx-inp">
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select   (change)="changeCommune($event)">
+                        <option value="" selected disabled >Commune </option>
+                        <option [value]="com.name" *ngFor = "let com of commune">{{com.name}}</option>
+                    </select>
+                </div>
+        
+                <div class="box-conx-inp" >
+                    <button><i class="bi bi-chevron-down"></i></button>
+                    <select>
+                        <option value="" selected disabled >Fonkotany</option>
+                        <option [value]="fok.name" *ngFor = "let fok of fokontany">{{fok.name}}</option>
+                    </select>
+                </div>
+            </div>
+    
+            <!-- <div class=" box-conx-inp flex-start  p-left-20 text-16" (click) = "showFilterActivity()">
+                <span class="c_pink">Secteur d'activité</span> 
+                <button *ngIf ="!filtre_activity"><i class="bi bi-chevron-down"> </i></button>
+                <button *ngIf ="filtre_activity"><i class="bi bi-chevron-up"> </i></button>
+            </div>
+            
+            <div class="mb_20" *ngIf ="filtre_activity">
+                <div class="box-check-simple">
+                    <div class="check-carre"><i class="bi bi-check2"></i></div>
+                    <span>xxxxxxxxxxx</span>
+                </div>
+                <div class="box-check-simple">
+                    <div class="check-carre-ckecked"><i class="bi bi-check2"></i></div>
+                    <span>xxxxxxxxxxxxxxx</span>
+                </div>
+                <div class="box-check-simple">
+                    <div class="check-carre-ckecked"><i class="bi bi-check2"></i></div>
+                    <span>xxxxxxxxxxxxx</span>
+                </div>
+                <div class="box-check-simple">
+                    <div class="check-carre"><i class="bi bi-check2"></i></div>
+                    <span>xxxxxxxxxxxxxxx</span>
+                </div>
+                <div class="box-check-simple">
+                    <div class="check-carre"><i class="bi bi-check2"></i></div>
+                    <span>xxxxxxxxxxxx</span>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    
+    <!-- Pagination  -->
+
+    <div class="pagination">
+        <div>
+            <button (click)="previousPagination() "
+               [disabled]="pointerPage == 1"
+               [ngClass]="{'active_nextPrev':pointerPage !== 1}"><span class="mobile"><i class="bi bi-chevron-left"></i></span>   <span class="pc">Précèdent</span>
+            </button>
+   
+        <span class="pagination-btn" >
+           <button *ngFor='let page of paginationTab ; let i = index'
+                   (click)="changePagePagination(i+1)"
+                   [ngClass]="{'active': i+1 === pointerPage}" >
+              <span  >  {{i+1}} </span>
+           </button>
+        </span>
+   
+        <button (click)="nextPagination()"
+                [disabled]="pointerPage == nb_pagination"
+                [ngClass]="{'active_nextPrev':pointerPage !== nb_pagination}"><span class="pc">Suivant </span><span class="mobile"><i class="bi bi-chevron-right"></i></span> 
+        </button>
+        </div>
+        <div style="margin: 15px 30px 0px 30px;">
+            <span >page {{pointerPage}} sur {{nb_pagination}}</span> 
+        </div>
+     </div>
+     <br>
+     
+
+</div>

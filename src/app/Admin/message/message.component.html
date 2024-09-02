@@ -1,0 +1,55 @@
+<div class="apercu flex-space">
+    <div class="boxa" [ngClass]="{'active': menu_active == 1}" (click)="menu(1)">
+        <div class="flex-space">
+            <span class="text-20">All Message</span>
+            <span><i class="bi bi-circle-fill"></i></span>
+        </div>
+        <div class="chiffre">{{nb.all}}</div>
+    </div>
+    <div class="boxa" [ngClass]="{'active': menu_active == 2}" (click)="menu(2)">
+        <div class="flex-space">
+            <span class="text-20">Inconnue</span>
+            <span><i class="bi bi-circle-fill"></i></span>
+        </div>
+        <div class="chiffre">{{nb.inconnue}}</div>
+    </div>
+    <div class="boxa" [ngClass]="{'active': menu_active == 3}" (click)="menu(3)">
+        <div class="flex-space">
+            <span class="text-20">Utilisateur</span>
+            <span><i class="bi bi-circle-fill"></i></span>
+        </div>
+        <div class="chiffre">{{nb.utilisateur}}</div>
+    </div>
+</div>
+
+<div class="search_loading flex-center" *ngIf="loading">
+    <app-loading [color] = "'pink'"></app-loading>
+</div>
+
+<div class="block-liste">
+
+    <div *ngFor=" let msg of data" class="liste">
+        <div class="msg">
+            <div class="box-content">
+                <div class="content">
+                    <!-- <div class="b-profil">
+                        <div class="profil">
+                            <img src="{{imageUrl(utilisateur.profilPicture.name , utilisateur.profilPicture.type)}}" alt="" loading="lazy" >
+                        </div>
+                    </div> -->
+                    <div class="contenu">
+                        <div><span>{{msg.fullName}}</span></div>
+                        <div><span>{{msg.email}} </span></div>
+                        <div><span>0{{msg.phoneNumber}}</span></div>
+                        <div><span class="c_gray">{{msg.message}} </span></div>
+                    </div>
+                </div>
+                <!-- <div class="icone_02">
+                    <i class="bi bi-chevron-right"></i>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+
+</div>

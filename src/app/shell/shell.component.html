@@ -1,0 +1,14 @@
+<!-- <div style="height: 100%;"  [ngClass]="{'path_home': sombre }"> -->
+<div style="height: 100%;" class="sombre" >
+  <app-nav></app-nav>
+
+  <div class="block-accueil"></div>
+  
+  <div class="block-conteneur " [ngClass] = "{'flex-center' : event_create}">
+    <div class="conteneur" >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,10 @@
+<div class="flex-start rad-15 m-top-20" > 
+    <a [routerLink]="['/user/activite/donate']"><div class="menu rad-15 pad_20 pointer" [ngClass] = "{'menu_active ':  active == 1}" (click) = "active = 1">Dons offert a l'assxxx</div></a>
+    <a *ngIf ="user.type !== 1" [routerLink]="['/user/activite/need']"><div class="menu rad-15 pad_20 pointer m-left-30" [ngClass] = "{'menu_active ':  active == 2}" (click) = "active = 2">Besoin</div></a>
+</div>
+
+<router-outlet></router-outlet>
+  
+
+
+

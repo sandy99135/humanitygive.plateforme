@@ -1,0 +1,68 @@
+<div class="block_event_create">
+    <h1>Ajouter un besoin</h1>
+
+    <form  #myForm ="ngForm" >
+
+        <div class="type pointer">
+            <span><i class="bi bi-chevron-down"></i></span>
+            <select  (change)="changeType($event)">
+                <option value="" selected disabled >Type de besoin</option>
+                <option value="Besoin monétaires" >Besoin monétaires</option>
+                <option value="Besoin matériels" >Besoin matériels</option>
+                <option value="Besoin alimentaires" >Besoin alimentaires</option>
+                <option value="Besoin de bénévoles" >Besoin de bénévoles </option>
+            </select>
+        </div>
+
+        <div class="box-inp-gray ">
+            <input type="text"  [(ngModel)] = "titre" placeholder="Titre " [ngModelOptions]="{standalone: true}">
+        </div>
+
+
+        <div class="box-inp-gray">
+            <label for="">Description et detail</label>
+            <textarea [(ngModel)] = "description" style="height: 160px;" name="" id="" cols="30" rows="10" placeholder="" [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+
+        <div class="bx-con relative" style="width:180px;">
+            <span class="check-rond-plus"><i class="bi bi-plus"></i></span>
+            <span> Ajouter Photo</span>
+            <input class="inp-file" type="file" (change)="onFileChange($event)" multiple >
+        </div>
+
+        <div class="box_preview">
+            <div *ngFor="let image of imagePreviews ; let i = index ;">
+                <div class="image-preview ">
+                  <div class="image-content"><img [src]="image.src"></div>
+                  <div class="image-info">
+                    <div class="image-info-detail">
+                        <p>{{ image.name }}</p>
+                        <p [ngStyle] = "styleMaxSizePreview(image.size)"><strong>Size:</strong> {{ image.size | fileSize }}</p>
+                    </div>
+                    <div class="image-info-x pointer" (click) = "deletePreview(i , image.name)"><i class="bi bi-x"></i></div>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        <div class="error " style="margin-bottom: 20px;" *ngIf ="error_localPictures">
+            <span>Une erreur est servenue lors de xxxx xxxx</span>
+        </div>
+
+        <div class="error " style="margin-bottom: 20px;" *ngIf ="error">
+            <span>{{error}}</span>
+        </div>
+        
+    </form>
+
+    
+
+    <div class="flex-space-simple mg_25 ">
+        <button class="bout-pink pointer" (click) = "addNeed()">Ajouter un besoin</button>
+        <a routerLink="/user/profile" class="b-cont-mobil ">
+            <span class="bout-black pointer" >Retour</span>
+        </a>
+    </div>
+    
+    
+</div>

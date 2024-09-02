@@ -1,0 +1,163 @@
+<form [formGroup]="myForm" (ngSubmit)="saveUpdate()">
+
+<div class="box-loading " *ngIf="loading">
+    <app-loading [color]="'pink'" ></app-loading>
+</div>
+
+<div  *ngIf="!loading">
+
+    <div class="mission">
+        <div class=" flex-space-simple">
+            <h1 class="h1-edit">Mission</h1>
+        </div>
+            <div class="box-inp-gray">
+                <textarea formControlName ="mission" [(ngModel)]="details.mission"
+                style="height: 105px; padding: 20px;" name="" id="" cols="30" rows="10" placeholder="Contenu"></textarea>
+            </div>
+        <!-- <div class="p-left-20 mg_25 ">
+            <button class="bout-pink">sauvegarder </button>
+        </div> -->
+    </div>
+
+
+    <div class="equipe-realisation" *ngIf = "user.type == 0">
+        <h1 class="h1-edit">Information sur l' équipe et Réalisation</h1>
+            <div class="box-inp">
+                <label for="">Nom et Prénom du responsable</label>
+                <input type="text"  formControlName="responsable" [(ngModel)]="details.associationTeamInfo.headFullname">
+            </div>
+            <div class="info-equipe flex-space-simple">
+                <div class="box-inp">
+                    <label for="">Nombre d'equipe</label>
+                    <input type="number" formControlName="nb_equipe" [(ngModel)]="details.associationTeamInfo.teamNumber">
+                </div>
+                <div class="box-inp">
+                    <label for="">Nombre de charges</label>
+                    <input type="number" formControlName="nb_charge" [(ngModel)]="details.associationTeamInfo.chargeNumber">
+                </div>
+                <div class="box-inp">
+                    <label for="">Nombre d'implantation</label>
+                    <input type="number" formControlName="nb_implantation" [(ngModel)]="details.associationTeamInfo.implantationNumber">
+                </div>
+                <!-- <div class="box-inp">
+                    <label for="">Nombre X parraigné</label>
+                    <input type="number" formControlName="x_parraigne" [(ngModel)]="details.associationTeamInfo.number">
+                </div> -->
+            </div>
+            <div class="box-inp">
+                <label for="">Autre réalisation</label>
+                <div class="flex-space-simple">
+                    <input type="text" formControlName="autre" placeholder="Autre titre" [(ngModel)]="details.associationTeamInfo.content">
+                    <span style="width: 30px;"></span>
+                    <input type="number" formControlName="nb_autre" placeholder="Nombre" [(ngModel)]="details.associationTeamInfo.state">
+                </div>
+            </div>
+    </div>
+
+
+
+    <div class="biographie">
+        <h1 class="h1-edit">Bigraphie</h1>
+            <div class="box-inp-gray">
+                <textarea formControlName="biography" [(ngModel)]="details.biography"
+                style="height: 105px; padding: 20px;" name="" id="" cols="30" rows="10" placeholder="Paragraphe"></textarea>
+            </div>
+    </div>
+
+
+    <!-- <div class="besoin">
+        <h1 class="h1-edit">Besoin</h1>
+            <div class="box-inp-gray">
+                <textarea formControlName="need" [(ngModel)]="details.need"
+                style="height: 80px; padding: 20px;" name="" id="" cols="30" rows="10" placeholder="Contenu"></textarea>
+            </div>
+    </div> -->
+
+
+    <!-- <div class="realisation">
+        <h1 class="h1-edit">Réalisation</h1>
+
+        <div class="box-check text-16"><span class="check-rond-plus"><i class="bi bi-plus"></i></span>Ajouter Photo</div>
+
+        <div class="box-inp">
+            <input type="text" 
+            [(ngModel)]="realisation_titre" 
+            formControlName="realisation_titre"  
+            placeholder="Titre">
+        </div>
+
+        <div class="box-inp-gray">
+            <textarea 
+            [(ngModel)]="realisation_contenu" 
+            formControlName="realisation_contenu" 
+            style="height: 105px; padding: 20px;" name="" id="" cols="30" rows="10" placeholder="Contenu"></textarea>
+        </div>
+
+        <div class="p-left-20 mg_25 flex-space-simple" >
+            <span class="bout-pink pointer" (click)="updateRealisation()">Update</span> 
+            <span class="bout-pink pointer" (click)="addRealisation()">Ajouter réalisation</span>
+        </div>
+
+        <div class="line-large"><hr></div> <br>
+
+        <div class="liste-realisation c_gray ">
+            <div class="box-realisation ">
+                <div class="re-titre flex-space-simple pad_20 pointer" *ngFor = "let tem of details.realisations , let i = index" (click) = choseRealisation(i)>
+                    <div >{{tem.title}}</div> 
+                    <div><i class="bi bi-trash3" (click)="deleteRealisation(i)"></i></div>
+                </div>
+            </div>
+            <div class="b-supp"><i class="bi bi-trash3"></i></div>
+        </div>
+    </div> -->
+
+
+    <!-- <div class="parteaire">
+        <h1 class="h1-edit">Partenaire</h1>
+        <form action="">
+            <div class="box-check text-16"><span class="check-rond-plus"><i class="bi bi-plus"></i></span>Logo ou image</div>
+            <div class="box-inp">
+                <input type="text" formControlName="annee" placeholder="Titre / Legende">
+            </div>
+        </form>
+        <div class="p-left-20 mg_25 ">
+            <button class="bout-pink">+ partenaire</button>
+        </div>
+        <div class="line-large"><hr></div> <br>
+        <div class="liste-realisation c_gray flex-start">
+            <div class="m_20">
+                <div style="width: 150px ; height: 150px; border-radius: 10px ; background-color: var(--hoverBackground );">
+                    <div class="b-supp"><i class="bi bi-trash3"></i></div>
+                </div>
+                <div style="width: 200px ;" >xxxxxxxxxxxxxx x xxxxxxxxxxxx</div>
+            </div>
+
+            <div class="m_20">
+                <div style="width: 150px ; height: 150px; border-radius: 10px ; background-color: var(--hoverBackground );">
+                    <div class="b-supp"><i class="bi bi-trash3"></i></div>
+                </div>
+                <div style="width: 200px ;" >xxxxxxxxxxxxxx x xxxxxxxxxxxx</div>
+            </div>
+        </div>
+    </div> -->
+
+    <br>
+    <div class="error" *ngIf ="error">Une erreur au niveau du serveur , veuillez réesayer</div>
+    <br>
+
+    <div class="save-bas  mg_30 "  >
+        <button type="submit" class="bout-pink pointer m-right-30">
+            <app-loading *ngIf="loading_update"></app-loading>
+            Enregistrer <span class="mobi-none">les informations</span> 
+        </button>
+        <button class="bout-black pointer" (click)= "retour()" >
+            Retour 
+        </button>
+    </div>
+
+
+</div>
+
+</form>
+
+<br><br>

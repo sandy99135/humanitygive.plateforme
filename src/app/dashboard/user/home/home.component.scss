@@ -1,0 +1,29 @@
+
+
+.menu {
+    background-color: white;
+}
+
+.menu_active {
+    background-color: var(--pink); color: white;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media only screen and (max-width: 600px) {
+    .option {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .option div{
+        margin-right: 0px;
+    }
+
+    .mobile-margin {
+        margin-left: 10px;
+    }
+}

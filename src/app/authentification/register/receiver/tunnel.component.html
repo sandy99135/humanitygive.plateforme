@@ -1,0 +1,148 @@
+
+<!-- <div style="height: calc(100vh - 74px);" class="flex-center" *ngIf ="loading">
+    <app-loading [color]="'pink'"></app-loading>
+</div> -->
+
+<div class="block_tunnel" >
+
+    <div class="flex-end-simple" >
+        <div class="retour_tunnel" (click) = "retour()"><i class="bi bi-arrow-left"></i></div>
+    </div>
+
+    <div  class="block-etape" *ngIf = "etape == 1">
+        <h1><span>Dénomination et domaine d'activité ?</span></h1>
+        <form [formGroup]="denomination_form" (ngSubmit)="denomination_Submit(2)">
+            <div class="box-conx-inp">
+                <input type="text" placeholder="Domaine d'activité" formControlName="denomination" [(ngModel)]="register.denomination"/>
+            </div>
+
+            <div class="box-conx-inp ">
+                <span><i class="bi bi-chevron-down"></i></span>
+                <select  formControlName="secteur" >
+                    <option value="" selected disabled >Secteur d'activité</option> 
+                    <option [value]="secteur.value" *ngFor = "let secteur of secteurs">{{secteur.value}}</option>
+                </select>
+            </div>
+
+            <div class="button">
+                <button type="submit"  [disabled]="denomination_form.invalid" class="bout"  [ngClass]="{'bout_pink': !denomination_form.invalid , 'bout_pink_disabled':denomination_form.invalid}" >Continuer</button>
+            </div>
+        </form>
+    </div>
+
+    <div  class="block-etape" *ngIf = "etape == 2">
+        <h1><span>Veuillez indiquer votre adresse</span></h1>
+        <form [formGroup]="adresse_form" (ngSubmit)="adresse_Submit(3)">
+            <div class="">
+                <div class="box-conx-inp">
+                    <span><i class="bi bi-chevron-down"></i></span>
+                    <select  formControlName="province" (change)="changeProvince($event)">
+                        <option value="" selected disabled >Province</option>
+                        <option [value]="prov" *ngFor = "let prov of province">{{prov}}</option>
+                    </select>
+                </div>
+        
+                <div class="box-conx-inp">
+                    <span><i class="bi bi-chevron-down"></i></span>
+                    <select  formControlName="region" (change)="changeRegion($event)">
+                        <option value="" selected disabled >Région</option>
+                        <option [value]="reg.name" *ngFor = "let reg of region">{{reg.name}}</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="box-conx-inp">
+                <span><i class="bi bi-chevron-down"></i></span>
+                <select  formControlName="district" (change)="changeDistrict($event)">
+                    <option value="" selected disabled >District</option>
+                    <option [value]="dis.libelle" *ngFor = "let dis of district">{{dis.libelle}}</option>
+                </select>
+            </div>
+
+            <div class="">
+                <div class="box-conx-inp">
+                    <span><i class="bi bi-chevron-down"></i></span>
+                    <select  formControlName="commune" (change)="changeCommune($event)">
+                        <option value="" selected disabled >Commune </option>
+                        <option [value]="com.name" *ngFor = "let com of commune">{{com.name}}</option>
+                    </select>
+                </div>
+                <div class="box-conx-inp" >
+                    <span><i class="bi bi-chevron-down"></i></span>
+                    <select  formControlName="fokotany" >
+                        <option value="" selected disabled >Fonkotany</option>
+                        <option [value]="fok.name" *ngFor = "let fok of fokontany">{{fok.name}}</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="box-conx-inp">
+                <input type="text" placeholder="Adresse : Ex 22 TBE" formControlName="adresse" [(ngModel)]="register.adresse"/>
+            </div>
+
+            <div class="button">
+                <button type="submit"  [disabled]="adresse_form.invalid" class="bout"  [ngClass]="{'bout_pink': !adresse_form.invalid , 'bout_pink_disabled':adresse_form.invalid}" >Continuer</button>
+            </div>
+        </form>
+    </div>
+
+    
+    <div  class="block-etape" *ngIf = "etape == 3">
+        <h1><span>Votre date de création ?</span></h1>
+        <form [formGroup]="annee_form" (ngSubmit)="annee_Submit(4)">
+            <div class="box-conx-inp">
+                <input type="date" placeholder="Date de creation" formControlName="annee" [(ngModel)]="register.annee" style="display: block;"/>
+            </div>
+            <div *ngIf = "date_error" class="error">La date d'existence doit être inférieure à la date actuelle</div>
+            <div class="button">
+                <button type="submit"  [disabled]="annee_form.invalid" class="bout"  [ngClass]="{'bout_pink': !annee_form.invalid , 'bout_pink_disabled':annee_form.invalid}">Continuer</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!--  Mot de Passe -->
+    <div  class="block-etape" *ngIf = "etape == 4">
+        <h1><span>Définissez votre mot de passe</span></h1>
+        
+        <p class="text-mdp">
+            Il doit comporter au moin 8 caractères dont 1 lettre , 1 chiffre et 1 caractère spécial.
+        </p>
+        <form [formGroup]="mdp_form" (ngSubmit)="mdp_Submit(5)">
+            <div class="box-conx-inp relative">
+                <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Mot de passe" formControlName="mdp" [(ngModel)]="register.mdp"/>
+                <span class="button-eye pointer " (click) = "showPassword = !showPassword" style="display: block; position: absolute; top: 20px;right: 20px">
+                    <i *ngIf ="!showPassword" class="bi bi-eye" aria-hidden="true"></i>
+                    <i *ngIf ="showPassword" class="bi bi-eye-slash" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="button">
+                <button type="submit"  [disabled]="mdp_form.invalid" class="bout"  [ngClass]="{'bout_pink': !mdp_form.invalid , 'bout_pink_disabled':mdp_form.invalid}">Continuer</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Verif numero -->
+    <div class="block-etape" *ngIf = "etape == 5">
+        <h1><span>Entrer votre numéro de téléphone </span></h1>
+        <form [formGroup]="num_form" (ngSubmit)="num_Submit()">
+            <div class="box-conx-num">
+                <div class="">
+                    <span>+ 261</span>
+                    <span><i class="bi bi-chevron-down"></i></span>
+                </div>
+                <input #myInput (input)="numberValidation($event)" type="number" placeholder="Numéro de téléphone" formControlName="num" [(ngModel)]="register.num" />
+            </div>
+
+            <div class="error" *ngIf=""> Une erreur s'est produit , veuillez réesayer</div>
+
+            <div class="button" >
+                <button type="submit"  [disabled]="!num_validation" class="bout"  [ngClass]="{'bout_pink': num_validation , 'bout_pink_disabled':!num_validation}"  >
+                    <app-loading *ngIf="send_loading"></app-loading>
+                    Continuer
+                </button>
+            </div>
+        </form>
+    </div>
+    
+</div>

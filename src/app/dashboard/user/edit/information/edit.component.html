@@ -1,0 +1,115 @@
+<h1 class="h1-edit"> Modifier Information</h1>
+
+<div class="box-loading2 " *ngIf="loading">
+    <app-loading [color] = "'pink'"></app-loading>
+</div>
+
+<div class="block_edit " *ngIf="!loading">
+   
+    <div >
+            <div class="box_form flex-space-simple">
+                <div class="block-form">
+                    <div class="box-inp">
+                        <label for="">Denomination</label>
+                        <input type="text" [(ngModel)]="details.fullName">
+                    </div>
+    
+                    <div class="box-inp" *ngIf = "user.type == 0">
+                        <label for="">Secteur d'activité</label>
+                        <select  [(ngModel)]="details.sectorActivity" > 
+                            <option value="" selected disabled >{{details.sectorActivity}}</option> 
+                            <option [value]="secteur.value" *ngFor = "let secteur of sector_activity_list">{{secteur.value}}</option>
+                        </select>
+                    </div>
+
+                    <div class="box-inp" *ngIf = "user.type == 0">
+                        <label for="">Année d'existance</label>
+                        <input type="date"  id = "apparenceYear" [(ngModel)]="details.apparenceYear" value="{{details.apparenceYear}}" >
+                    </div>
+    
+                    <!-- <div class="box-inp">
+                        <label for="">E-mail</label>
+                        <input type="text" [(ngModel)]="details.email" >
+                    </div>
+    
+                    <div class="box-inp">
+                        <label for="">Numero téléphone</label>
+                        <input type="number" [(ngModel)]="details.phoneNumber" #myInput (input)="numberValidation($event)">
+                    </div> -->
+    
+                    <div class="box-inp" *ngIf = "user.type == 0">
+                        <label for="">Site web</label>
+                        <input type="text" [(ngModel)]="details.website" >
+                    </div>
+            </div>
+        
+            <div class="block-form" >
+    
+                    <div class="box-inp">
+                        <label for="">Province</label>
+                        <select [(ngModel)]="details.province" (change)="changeProvince($event)">
+                            <option value="" selected>{{details.province}}</option>
+                            <option [value]="prov" *ngFor = "let prov of province">{{prov}}</option>
+                        </select>
+                    </div>
+    
+                    <div class="box-inp">
+                        <label for="">Région</label>
+                        <select  [(ngModel)]="details.region" (change)="changeRegion($event)">
+                            <option value="" selected>{{details.region}}</option>
+                            <option [value]="reg.name" *ngFor = "let reg of region">{{reg.name}}</option>
+                        </select>
+                    </div>
+    
+                    <div class="box-inp">
+                        <label for="">District</label>
+                        <select  [(ngModel)]="details.district" (change)="changeDistrict($event)">
+                            <option value="" selected >{{details.district}}</option>
+                            <option [value]="dis.libelle" *ngFor = "let dis of district">{{dis.libelle}}</option>
+                        </select>
+                    </div>
+    
+                    <div class="box-inp" (change)="changeCommune($event)">
+                        <label for="">Commune / Arrondissement</label>
+                        <select  [(ngModel)]="details.commune" >
+                            <option value="" selected >{{details.commune}}</option>
+                            <option [value]="com.name" *ngFor = "let com of commune">{{com.name}}</option>
+                        </select>
+                    </div>
+    
+                    <div class="box-inp">
+                        <label for="">Fokotany</label>
+                        <select id = "fokotany" >
+                            <option value="" selected >{{details.fokotany}}</option>
+                            <option [value]="fok.name" *ngFor = "let fok of fokotany">{{fok.name}}</option>
+                        </select>
+                    </div>
+
+                    
+    
+                    <div class="box-inp">
+                        <label for="">Adresse</label>
+                        <input type="text" [(ngModel)]="details.addresse" >
+                    </div>
+                 
+            </div>
+            </div>
+            
+            <div class="error" *ngIf ="error">
+                <br>
+                <div>Une erreur au niveau du serveur , veuillez réesayer</div>
+            </div>
+
+        <div class="p-left-20 mg_25">
+            <button class="bout b_pink pointer m-right-30" (click)= "sauvgardeInformation()" >
+                <app-loading *ngIf="loading_update"></app-loading>
+                sauvegarder 
+            </button>
+            <button class="bout-black pointer" (click)= "retour()" >
+                Retour 
+            </button>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,45 @@
+<h1 class="h1-left">xxxxxxxx xxxxx1</h1>
+
+<div class="filtre flex-start">
+    <div class="item-filtre flex-space">
+        <span>Secteur d'activité</span>
+        <button><i class="bi bi-chevron-down"></i></button>
+    </div>
+    <div class="item-filtre flex-space">
+        <span>Categorie</span>
+        <button><i class="bi bi-chevron-down"></i></button>
+    </div>
+    <div class="item-filtre flex-space">
+        <span>Région</span>
+        <button><i class="bi bi-chevron-down"></i></button>
+    </div>
+</div>
+
+<div>
+    <div class="block-liste">
+        <div *ngFor = " let receiver of data" class="liste" (click) = "viewEvent()">
+            <div class="image">
+                <!-- <img src="https://www.cosourcing.fr/wp-content/uploads/2020/01/masohafa-madagscar-1080x600-1.jpg" alt=""> -->
+                <div class="label">3J restants</div>
+            </div><br>
+            <span class="text-20">xxxxxxxxxxx</span>
+            <div class="box-p mmg_10">
+                <p class="c_gray ">xxxxx xxx x xxxxxx xxxxx xxx xxxxx xxxx xxxx xxxx xxxxx xxxxx x xxxxxxxxxx xxxxx</p>
+            </div>
+
+            <div>
+                <div class="flex-space">
+                    <span>Raised</span>
+                    <span>Left</span>
+                </div>
+                <div class="barre">
+                    <div class="raised-barre"></div>
+                </div>
+            </div>
+            
+            <!-- <div>
+                <button class="bout_large b_black">xxxxxxxxx</button>
+            </div> -->
+        </div>  
+    </div>
+</div>

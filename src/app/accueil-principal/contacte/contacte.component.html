@@ -1,0 +1,67 @@
+<div class="b-contacter">
+    <div class="flex-space-simple mobi-contacte">
+        <div class="bx-c">
+            <h1 class="h1-left">Nous envoyer un message </h1>
+            <p class="c_gray">Vous souhaitez nous écrire... <br>
+                Que peut-on faire pour vous aider ?</p>
+
+            <div class="box-msg">
+                <div class="box-inp-gray box-left">
+                    <label for="">Nom et Prénom</label>
+                    <input type="text" [(ngModel)]="name"  placeholder="">
+                </div>
+                <div class="box-inp-gray box-left">
+                    <label for="">Email</label>
+                    <input type="mail" [(ngModel)]="email" placeholder="">
+                </div>
+                <div class="box-inp-gray box-left">
+                    <label for="">Numero téléphone</label>
+                    <input  #myInput (input)="numberValidation($event)" type="number" [(ngModel)]="phoneNumber"  placeholder="">
+                </div>
+                <div class="box-inp-gray box-left">
+                    <label for="">Votre message</label>
+                    <textarea [(ngModel)]="message" style="height: 175px; padding: 20px;" name="" id="" cols="30" rows="10" placeholder=""  ></textarea>
+                </div>
+            </div>
+            <div class="error" *ngIf = "error_message">{{error_message}}</div> 
+            <div class="succes" *ngIf = "error_succes">
+                {{error_succes}}
+                <span class="succes-x"><i class="bi bi-check-lg"></i></span>
+            </div>
+            <br>
+
+            <button class="bout-pink" (click) = "validation()">
+                <app-loading *ngIf="loading"></app-loading>
+                Send Message
+            </button>
+        </div>
+
+        
+        <div class="bx-c bx-adresse">
+            <div class="adresse-image">
+                <img src="/assets/images/contact.jpg">
+            </div>
+
+            <!-- <div class="adresse">
+                <div class="flex-start c_gray mb_10">
+                    <div class="m-right-20 "><i class="bi bi-geo-alt-fill"></i></div>
+                    <div>xxx xxx xxx xxx , xxx xxxxxx , xxxxxxxxxxx xxxxx xxxxx</div>
+                </div> <br>
+                <div class="flex-start c_gray mb_5">
+                    <div class="m-right-20 "><i class="bi bi-telephone-fill"></i></div>
+                    <div>+261 xx xxx xx xxx</div>
+                </div>
+                <div class="flex-start c_gray">
+                    <div class="m-right-20 "><i class="bi bi-envelope-fill"></i></div>
+                    <div>xxxxxxxxxxxxx@gmail.com</div>
+                </div>
+    
+                <div class="icone">
+                       <a href=""> <img src="/assets/images/fb.png"> </a>
+                       <a href=""> <img src="/assets/images/in.png"> </a>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
+</div>

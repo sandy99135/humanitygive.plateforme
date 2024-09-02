@@ -1,0 +1,41 @@
+.contener-footer {
+    background-color: #f3f4f5;
+    margin-top: 150px;
+    padding: 150px 0px;
+}
+
+.footer {
+    width: var(--mesure_large);
+    margin: 0px auto;
+}
+
+.accueil {
+    background-color: transparent;
+    margin-top: 0px;
+    padding: 150px 0px;
+}
+
+
+@media only screen and (max-width:700px) {
+
+    .contener-footer
+    {
+        background-color: #f3f4f5;
+    }
+
+    .footer , .footer-mobi{
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .footer h1{
+        text-align: center;
+    }
+
+    .mobi-ma {
+        margin-bottom: 40px;
+    }
+}

@@ -1,0 +1,158 @@
+.block-need-view{
+    width: var(--mesure_auth);
+    margin: 0px auto;
+}
+
+.box-profil {
+    margin: 30px 0px;
+}
+
+.profil{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: rgba(128, 128, 128, 0.447);
+    margin-right: 10px;
+}
+
+// *******
+
+
+.box-info{
+    margin-bottom: 20px;
+}
+
+.box {
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.box-info .barre {
+    width: 100%;
+    height: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    background-color: var(--hoverBackground);
+    overflow: hidden;
+}
+
+.box-info .raised-barre {
+    width: 65%;
+    height: 100%;
+    background-color: var(--pink);
+}
+
+.box-image {
+    width: 100%;
+    height: 350px;
+    border-radius: 15px;
+    background-color: rgb(202, 202, 202);
+    margin-bottom: 20px;
+}
+
+.need_image {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.box-image2 {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    background-color: rgb(202, 202, 202);
+    margin-bottom: 20px;
+}
+
+
+// ********************
+
+
+@media only screen and (max-width:900px) {
+    
+    .block-need-view{
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width:600px) {
+    
+    .box-image {
+        height: 280px;
+    }
+    h1 {
+        width: 80%;
+    }
+
+    .box-image2 {
+        width: 100%;
+        height: 250px;
+    }
+
+}
+
+
+//  Table *** 
+
+.contributeur {
+
+    table {
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+    }
+    
+    table thead th {
+        padding: 20px 0px;
+        background-color: var(--hoverBackground) ;
+    }
+    
+    // .th_panier {
+    //     padding-left: 20px !important;
+    // }
+    
+    table tbody td {
+        height: 65px;
+        background: white !important;
+        overflow: hidden;
+    }
+    
+    .rad_left  {
+        border-radius: 15px 0px 0px 15px;
+        padding-left: 20px !important;
+    }
+    
+    .rad_rigth {
+        border-radius: 0px 15px 15px 0px;
+        padding-right: 20px !important;
+    }
+    
+    .profil {
+        width: 45px;
+        height: 45px;
+        border-radius: 50px;
+        background-color: var(--hoverBackground);
+    }
+    
+    .name {
+        width: 100px;
+        max-height: 38.4px;
+        overflow: hidden;
+    }
+    
+    .box-panier {
+        max-width: 50%;
+        padding-left: 20px;
+        padding-right: 20px !important;
+    }
+    
+    .panier {
+        width: 100%;
+        max-height: 60px;
+        overflow: hidden;
+    }
+ 
+}

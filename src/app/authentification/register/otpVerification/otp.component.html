@@ -1,0 +1,41 @@
+
+<div class="otp-container">
+    <div *ngIf ="!isVerify">
+      <div class="image">
+        <img src="assets/images/otp.jpg" >
+      </div>
+      <div *ngIf = "!error">
+        <h2>Vérifier votre adresse e-mail</h2>
+        <p >
+          <span class="c_gray">Un code a été envoyé à</span>
+          <strong>&nbsp; {{email}}</strong>   
+        </p>
+      </div>
+      <div class="error"  *ngIf = "error">
+        Le code entré n'est pas valide
+      </div>
+      <br>
+      <span class="resend c_gray" (click) = "resend()">
+        {{resend_text}}
+        <app-loading *ngIf="loading_resend" [color]="'pink'" class="m-left-20"></app-loading>
+      </span>
+      <form [formGroup]="myForm" (ngSubmit)="verify()" >
+        <div class="input-field flex-space-simple">
+          <input type="text" formControlName="txt1" #txt1 maxlength="1" (keyup) = "move($event,'',txt1, txt2)" />
+          <input type="text" formControlName="txt2" #txt2 maxlength="1" (keyup) = "move($event,txt1,txt2, txt3)"/>
+          <input type="text" formControlName="txt3" #txt3 maxlength="1" (keyup) = "move($event,txt2,txt3, txt4)"/>
+          <input type="text" formControlName="txt4" #txt4 maxlength="1" (keyup) = "move($event,txt3,txt4, '')"/>
+        </div>
+        <button class="bout_otp" type="submit"  [disabled]="myForm.invalid"   [ngClass]="{'bout_otp': !myForm.invalid , 'bout_otp_desabled':myForm.invalid}">
+          <app-loading *ngIf="loading" class="m-right-20"></app-loading>
+          Verifier email
+        </button>
+      </form>
+    </div>
+
+    <div class="succes" *ngIf ="isVerify">
+        <i class="bi bi-check-circle-fill"></i>
+      <div>Validation effectuée avec succès</div>
+    </div>
+    
+  </div>

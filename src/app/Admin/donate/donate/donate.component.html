@@ -1,0 +1,175 @@
+<div>
+
+    <h2 class="h2-left">
+        <div class="flex-space-simple">
+            <span>Donate Dashbord</span>
+            <button class="filtre_gray" (click)="showFiltre()">
+                <span  style="font-weight: bold;margin-right: 10px;">Filtre</span>
+                <i class="bi bi-funnel-fill"></i> 
+            </button>
+        </div>
+        <div class="block_filtre" *ngIf ="filter" (clickOutside)="handleClickOutsideFiltre()">
+            <div class="box_filtre">
+                <div *ngFor = "let fl of filtre_liste ; let i = index ;" 
+                (click)="filtre(fl.target , i)"
+                [ngClass]="{'active': filtre_active_liste == i}">{{fl.name}}</div>
+            </div>
+        </div>
+        
+    </h2>
+
+    <div class="apercu flex-space">
+        <!-- <div class="boxa" [ngClass]="{'active': filtre_active == 1}" (click)="filtre(1)">
+            <div class="flex-space">
+                <span class="text-20">Dons monétaires</span>
+                <span><i class="bi bi-circle-fill"></i></span>
+            </div>
+            <div class="chiffre">{{nb.monetaires}}</div>
+        </div> -->
+        <div class="boxa" [ngClass]="{'active': filtre_active == 1}" (click)="filtre(2)">
+            <div class="flex-space">
+                <span class="text-20">Biens matériels</span>
+                <span><i class="bi bi-circle-fill"></i></span>
+            </div>
+            <div class="chiffre">{{nb.materiels}}</div>
+        </div>
+        <div class="boxa" [ngClass]="{'active': filtre_active == 2}" (click)="filtre(3)">
+            <div class="flex-space">
+                <span class="text-20">Dons alimentaires</span>
+                <span><i class="bi bi-circle-fill"></i></span>
+            </div>
+            <div class="chiffre">{{nb.alimentaires}}</div>
+        </div>
+        <!-- <div class="boxa" [ngClass]="{'active': filtre_active == 4}" (click)="filtre(4)">
+            <div class="flex-space">
+                <span class="text-20">Bénévolat</span>
+                <span><i class="bi bi-circle-fill"></i></span>
+            </div>
+            <div class="chiffre">{{nb.benevolat}}</div>
+        </div> -->
+    </div>
+
+    <!-- <div class="message flex-space mb_20">
+        <p>Explorez et visualiser l'évolution graphique mensuelle des activités</p>
+        <button class="bout-message" (click) = "blocChart = !blocChart" >
+            <span *ngIf ="!blocChart">Afficher graphe</span> 
+            <span *ngIf ="blocChart">Masquer graphe</span>
+        </button>
+    </div> -->
+
+    <!-- <div class="bloc-chart" *ngIf ="blocChart">
+        <div class="dash-titre"><i class="bi bi-square-fill"></i> <span>Rapport mensuel</span> </div>
+        <div id="divChart" class="flex-center">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div> -->
+
+    <!-- <h2 class="h2-left">Apercu</h2> -->
+
+
+
+    <!-- <div class="flex-space">
+        <div><h2 class="h2-left">Activité récente</h2></div>
+        <div class="c_gray"> <span>Voir tout</span><i class="bi bi-chevron-down p-left-20"></i></div>
+       
+    </div> -->
+
+    <div class="activite m-top-20">
+        <div class="search_loading flex-center" *ngIf="loading">
+            <app-loading [color]="'pink'"></app-loading>
+        </div>
+
+        <table *ngIf="!loading">
+            <thead>
+                <th class="rad_left">
+                    <span >Giver</span>
+                </th>
+                <th class="">
+                    <span >receiver</span>
+                </th>
+                <th class="mobil">Type</th>
+                <th class="th_panier">Panier</th>
+                <th class="mobil_650">Date</th>
+                <th class="rad_rigth">Etat</th>
+            </thead> <br>
+            <tbody class="c_gray">
+                <tr class="pointer don" *ngFor="let don of data ; let i = index ;" (click)="view(i)">
+                    <td class="rad_left">
+                        <div class="flex-start ">
+                            <div class="profil flex-center m-right-10">
+                                <ng-container *ngIf ="don.giver.profilPicture != null">
+                                  <img src="{{imageUrl(don.giver.profilPicture.name , don.giver.profilPicture.type)}}" alt="" loading="lazy"> 
+                                </ng-container>
+                                <ng-container *ngIf ="don.giver.profilPicture == null"> 
+                                    <i   class="bi bi-person-fill"></i>
+                                </ng-container>
+                            </div>
+                            <div class="name">
+                                <span >{{don.giver.fullName}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="rad_left">
+                        <div class="flex-start ">
+                            <div class="profil flex-center m-right-10">
+                                <ng-container *ngIf ="don.receiver.profilPicture != null">
+                                   <img src="{{imageUrl(don.receiver.profilPicture.name , don.receiver.profilPicture.type)}}" alt="" loading="lazy"> 
+                                </ng-container>
+                                <ng-container *ngIf ="don.receiver.profilPicture == null"> 
+                                    <i   class="bi bi-person-fill"></i>
+                                </ng-container>
+                            </div>
+                            <div class="name">
+                                <span>{{don.receiver.fullName}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <td class="mobil">{{don.type}}</td>
+                    <td class="box-panier">
+                        <div class="panier">
+                            <span *ngFor=" let gift of don.don " class="m-right-10">
+                                <span class="m-right-10">{{gift.quantity}}</span><span>{{gift.name}}</span> ,
+                            </span>
+                        </div>
+                    </td>
+                    <td class="mobil_650">{{don.createdAt | timeAgo}}</td>
+                    <td class="rad_rigth">
+                        <span class="etat"><i class="bi bi-circle-fill"
+                                [ngClass]="{'c-jaune' : don.state == 'NEW' || don.state == 'en cours'|| don.state == 'Attente de comfirmation', 'c-gray-low': don.state == 'annulé' , 'c-green-low' : don.state == 'Livré'}"></i></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination" *ngIf ="total >= page_size">
+        <div>
+            <button (click)="previousPagination() "
+               [disabled]="pointerPage == 1"
+               [ngClass]="{'active_nextPrev':pointerPage !== 1}"><span class="mobile"><i class="bi bi-chevron-left"></i></span>   <span class="pc">Précèdent</span>
+            </button>
+   
+        <span class="pagination-btn" >
+           <button *ngFor='let page of paginationTab ; let i = index'
+                   (click)="changePagePagination(i+1)"
+                   [ngClass]="{'active': i+1 === pointerPage}" >
+              <span  >  {{i+1}} </span>
+           </button>
+        </span>
+   
+        <button (click)="nextPagination()"
+                [disabled]="pointerPage == nb_pagination"
+                [ngClass]="{'active_nextPrev':pointerPage !== nb_pagination}"><span class="pc">Suivant </span><span class="mobile"><i class="bi bi-chevron-right"></i></span> 
+        </button>
+        </div>
+        <div style="margin: 15px 30px 0px 30px;">
+            <span >page {{pointerPage}} sur {{nb_pagination}}</span> |
+            <span>  {{total}} Resultats</span> 
+        </div>
+     </div>
+
+</div>
+
+
+<br><br>

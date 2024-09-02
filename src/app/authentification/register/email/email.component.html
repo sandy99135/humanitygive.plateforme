@@ -1,0 +1,32 @@
+<div style="height: calc(100vh - 100px);" class="flex-center" *ngIf ="loading">
+    <app-loading [color]="'pink'"></app-loading>
+</div>
+
+<div class="block_connexion_email"  *ngIf ="!loading">
+    <h1><span>Votre adresse e-mail ?</span></h1>
+
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="box-conx">
+            <input type="mail" placeholder="E-mail" formControlName="email" required/>
+        </div>
+
+        <div class="bx-text flex-space" (click) = "notifier()">
+            <div> <span>Je ne souhaite pas recevoir des notification</span></div>
+            <div class="check-box" [ngClass] = "{'checked': notification}"><i class="bi bi-check2"></i></div>
+        </div>
+
+        <div class="bx-text c_gray">
+            <p>
+                En tant qu'abonné(e), je peux me désinscrire et contacter Sozo à tout moment . .
+            </p>
+        </div>
+
+        <div class="bx-text">
+            <div> <span>Déja membre ?</span> <span (click) = "login()" class="c_pink"> Connexion</span></div>
+        </div>
+
+        <div class="button">
+            <button   type="submit" [disabled]="myForm.invalid" class="bout"  [ngClass]="{'bout_pink': !myForm.invalid , 'bout_pink_disabled':myForm.invalid}">Continuer</button>
+        </div>
+    </form>  
+</div>

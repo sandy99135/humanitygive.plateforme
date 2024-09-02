@@ -1,0 +1,13 @@
+.menu {
+    // background-color: var(--hoverBackground);
+    background-color: white;
+}
+
+.menu_active {
+    background-color: var(--pink); color: white;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

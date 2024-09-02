@@ -1,0 +1,122 @@
+.filtre {
+    margin: 20px 0px;
+}
+
+.item-filtre {
+    width: 250px;
+    height: 56px;
+    border-radius: 15px;
+    background-color: var(--hoverBackground);
+    margin-right: 40px;
+    overflow: hidden;
+}
+
+.item-filtre span{
+    padding: 0px 20px;
+}
+
+.item-filtre button{
+    height: 100%;
+    padding: 0px 20px;
+    border: none;
+    // background-color: var(--pink);
+    // color: white;
+}
+
+@media only screen and (max-width: 950px) {
+    .filtre {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item-filtre {
+        margin-right: 10px;
+    }
+    
+}
+
+@media only screen and (max-width: 700px) {
+    .filtre {
+        display: block;
+    }
+
+    .item-filtre {
+        width: 100%;
+        margin-right: 0px;
+        margin-bottom: 20px;
+    }
+    
+}
+
+// **********
+
+.block-liste {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.liste {
+    width: 270px;
+    // height: 200px;
+    border-radius: 10px;
+    margin: 15px 0px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+
+.image {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background-color: rgba(128, 128, 128, 0.466);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.image img{
+    width: 100%;
+}
+
+.image .label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: white;
+    padding: 7px 10px;
+    border-radius: 4px;
+}
+
+.liste .box-p{
+   height: 65px;
+   overflow: hidden;
+}
+
+.barre {
+    width: 100%;
+    height: 10px;
+    margin-top: 20px;
+    border-radius: 3px;
+    background-color: var(--hoverBackground);
+    overflow: hidden;
+}
+
+.raised-barre {
+    width: 65%;
+    height: 100%;
+    background-color: var(--pink);
+}
+
+@media only screen and (max-width: 750px) {
+    .block-liste {
+        justify-content: space-around;
+    }
+    .liste {
+        width: 100%;
+        // height: 200px;
+        border-radius: 10px;
+        margin: 15px 0px;
+        padding: 20px;
+        background-color: rgb(255, 255, 255);
+    }
+}

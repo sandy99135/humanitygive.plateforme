@@ -1,0 +1,142 @@
+.block_tunnel{
+    width: var(--mesure_auth);
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin: 35px 0px ;
+    font-size: 35px;
+}
+
+.box-conx {
+    width: 100%;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ;
+}
+
+.box-conx:hover {
+    background-color: var(--hoverBackground);
+}
+
+.conx {
+    width: var(--mesure_auth_box);
+    display: flex;
+    justify-content: space-between;
+}
+
+hr {
+    width: var(--mesure_auth_box);
+    height: 1px;
+    border: none;
+    border-bottom: var(--border);
+    margin:10px auto;
+}
+
+.box-conx-inp input {
+    width: 100%;
+    height: 62px;
+    border: 3.5px solid white;
+    appearance: none;
+    background: transparent;
+    font-size: 17px;
+    font-weight:500;
+    margin-bottom: 15px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--hoverBackground);
+    transition: 0.3s ;
+
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.box-conx-inp input:focus {
+    outline: none;
+    border: 3.5px solid var(--pink);
+}
+
+::placeholder { 
+    color: var(--g43xpl8);
+  }
+
+:-ms-input-placeholder { 
+    color: var(--g43xpl8);
+  }
+  
+::-ms-input-placeholder {
+    color: var(--g43xpl8);
+  }
+
+//*** input type date ***
+::-webkit-datetime-edit { font-family: WorkSans , "gt-eesti", "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--g43xpl8);}
+::-webkit-calendar-picker-indicator { margin-right: 20px;}
+
+.box-conx-num{
+    position: relative;
+}
+
+.box-conx-num div{
+    position: absolute;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-conx-num div span{
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 17px;
+}
+
+.box-conx-num input {
+    width: 100%;
+    height: 62px;
+    border: 3.5px solid white;
+    appearance: none;
+    background: transparent;
+    font-size: 17px;
+    font-weight:500;
+    margin-bottom: 15px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--hoverBackground);
+    transition: 0.3s ;
+
+    padding-left: 160px;
+    box-sizing: border-box;
+}
+
+.box-conx-num input:focus {
+    outline: none;
+    border: 3.5px solid var(--pink);
+}
+
+
+.box-conx-num input[type=number]::-webkit-inner-spin-button, .box-conx-num input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.text-mdp {
+    color: var(--g43xpl8);
+    margin-left: 10px;
+    margin-bottom: 20px;
+    font-size: 14.5px;
+}
+
+.button {
+    text-align: center;
+    margin-top: 30px;
+}
+

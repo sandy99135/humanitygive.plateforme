@@ -1,0 +1,69 @@
+.block_connexion{
+    width: var(--mesure_auth);
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin: 35px 0px ;
+    font-size: 35px;
+}
+
+.box-conx {
+    width: 100%;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ;
+}
+
+.box-conx:hover {
+    background-color: var(--hoverBackground);
+}
+
+.conx {
+    width: var(--mesure_auth_box);
+    display: flex;
+    justify-content: space-between;
+}
+
+.ico-facebook {
+    margin-right: 15px;
+}
+
+hr {
+    width: var(--mesure_auth_box);
+    height: 1px;
+    border: none;
+    border-bottom: var(--border);
+    margin:10px auto;
+}
+
+.deja_membre {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding-left: 31px;
+}
+
+.condition {
+    padding: 0px 30px;
+    font-size: 13px;
+}
+
+.condition p{
+    margin: 15px 0px;
+    color: var(--g43xpl8);
+}
+
+@media only screen and (max-width: 662px) {
+    .deja_membre {
+        padding-left: 20px;
+    }
+    
+    .condition {
+        padding: 0px 20px;
+    }
+  }
