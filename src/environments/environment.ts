@@ -6,8 +6,8 @@ export const environment = {
   production: false,
       //  URI:"https://89d0-154-126-61-242.ngrok-free.app",
       //URI:"https://localhost:44378",
-      URI:"https://localhost:7191",
-      URIChat:"https://localhost:7191",
+      URI:"https://b5f9-102-17-118-52.ngrok-free.app",
+      URIChat:"https://b5f9-102-17-118-52.ngrok-free.app",
 };
 
 /*
